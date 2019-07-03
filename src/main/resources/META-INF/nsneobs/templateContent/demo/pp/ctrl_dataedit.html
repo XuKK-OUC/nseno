@@ -1,0 +1,64 @@
+{OutContent$<div class="row">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <div class="form-group">
+                <label class="requiredflag" for="PatientProfile.xingming">姓名</label>
+                <input type="text" class="form-control" name="PatientProfile.xingming" id="PatientProfile.xingming" placeholder="" value="<data>PatientProfile.xingming</data>">
+            </div>
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+    <div class="col-sm-3">
+        <div class="form-group">
+
+            <label class="requiredflag" for="PatientProfile.chengshi">城市</label>
+            <input type="text" class="form-control" name="PatientProfile.chengshi" id="PatientProfile.chengshi" placeholder="" value="<data>PatientProfile.chengshi</data>">
+
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label class="requiredflag" for="PatientProfile.changzhuleixing">常住类型</label>
+            <input type="text" class="form-control" id="PatientProfile.changzhuleixing" name="PatientProfile.changzhuleixing" placeholder="" value="<data>PatientProfile.changzhuleixing</data>">
+
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+    <div class="col-sm-3">
+        <div class="form-group">
+
+            <label for="PatientProfile.zhengjianhaoma">证件号码</label>
+            <input type="text" class="form-control" name="PatientProfile.zhengjianhaoma" id="PatientProfile.zhengjianhaoma" placeholder="" value="<data>PatientProfile.zhengjianhaoma</data>">
+
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+</div>
+
+<!-- row end-->
+<div class="row">
+
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="PatientProfile.xingbie">性别</label>
+                <select class="form-control"  name="PatientProfile.xingbie" id="PatientProfile.xingbie">
+                    <globalds
+                            dstype="dynsource"
+                            outtype="com.nsneo.web.webTemplate.utils.dynWebDataSource.GlobalDSOutType_Option"
+                            datasource="com.nsneo.web.webTemplate.utils.dynWebDataSource.DynDataSourceForStaticGlobalParam"
+                            param="CommonStaticParam.GeneralParam.PersonSex">PatientProfile.xingbie</globalds>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+</div>
+}

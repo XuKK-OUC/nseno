@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:hdp="http://www.springframework.org/schema/hadoop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://activemq.apache.org/schema/core
+		http://activemq.apache.org/schema/core/activemq-core.xsd http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+
+<!-- 采用元数据加载驱动 -->
+    <!--liu写的-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--beans 加载扫描包-->
+    <context:component-scan base-package="addons.samples.springmvc.control" />
+    <context:component-scan base-package="addons.samples.springmvc.service" />
+    <context:component-scan base-package="addons.common.web.springController" />
+    <context:component-scan base-package="addons.demo.web.controller" />
+    <context:component-scan base-package="addons.nsneo.web" />
+    <context:component-scan base-package="addons.nsneo.service" />
+
+
+
+    <!--*************************************************************************************************************-->
+    <!--以下为Spring mvc 配置-->
+    <!--spring mvc 资源性访问 <mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>-->
+    <mvc:default-servlet-handler />
+
+    <!-- 处理jsp视图文件 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 多个拦截器，顺序执行 -->
+        <!--自己的拦截器   开发时注释-->
+        <mvc:interceptor>
+          <mvc:mapping path="/**" />
+          <mvc:exclude-mapping path="/api/usermodule/login"/>
+          <mvc:exclude-mapping path="/api/usermodule/checkcodeverify/**"/>
+          <mvc:exclude-mapping path="/api/usermodule/createcheckcode"/>
+          <mvc:exclude-mapping path="/api/usermodule/register"/>
+          <mvc:exclude-mapping path="/api/admin/login"/>
+            <bean class="addons.nsneo.interceptor.LoginInterceptor" />
+        </mvc:interceptor>
+        <!-- /** 表示所有的url，包括子url路径 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="addons.samples.springmvc.interceptor.MsgInterceptor"></bean>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
+    <!--*************************************************************************************************************-->
+    <!--以下为系统普通beans对象配置-->
+
+    <!--Spring ApplicationContext 查找服务,在Spring容器启动后,向该类注入Spring ApplicationContext,外部类可以从静态方法中获得Spring ApplicationContext的实例-->
+    <bean class="org.springframework.SpringContextUtil" destroy-method="closeUtils"/>
+
+    <!--Spring ApplicationContext 中注册的bean作为一个服务，在系统加载完成后进行初始化，并在系统销毁前执行销毁-->
+    <bean class="addons.samples.timer.SampleServiceInvokeTimer"/>
+    <bean class="org.springframework.SpringContextServiceManager" lazy-init="true">
+        <property name="beanIdLt">
+            <list>
+                <!--
+                <value>addons.samples.timer.SampleServiceInvokeTimer</value>
+                -->
+            </list>
+        </property>
+    </bean>
+
+    <!--*************************************************************************************************************-->
+    <!--以下为系统普通beans对象配置-->
+    <bean id="SysUserManFactory" class="com.common.pub.SysUserManFactoryforCommon" lazy-init="true"/>
+    <bean id="UserRoleMan" class="com.common.pub.SysUserRoleManforCommon" lazy-init="true"/>
+
+    <bean id="GlobalStaticCtrlMan" class="com.nsneo.web.webTemplate.webControl.GlobalStaticCtrlManImp" lazy-init="true">
+        <property name="resourceDomainRootUrl" value="http://192.168.77.1:8080"/>
+    </bean>
+
+    <!--通过spring 包装jpa实体工厂,实体单元名以对应实体工厂-->
+    <bean id="JPAManUtils" class="com.nsneo.dao.jpa.JPAManUtilsImpforSpring" lazy-init="true"/>
+
+
+    <!--*************************************************************************************************************-->
+
+    <bean class="addons.common.web.springController.dataPull.SimpleDataPullPackageMan" lazy-init="true" init-method="initSpringBeans">
+        <property name="pkgScanPaths">
+            <list>
+                <value>addons.common.entity</value>
+                <value>addons.common.web.springController.dataPull.demo</value>
+                <value>addons.nsneo.entity</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--*************************************************************************************************************-->
+
+
+    <!--数据源,数据库连接配置-->
+    <bean id="LiteDaoDataSource" class="com.nsneo.dao.jdbc.DataSourceUtilsforClearDbcp" lazy-init="true">
+        <!--win:localhost,mac:172.16.79.141,linux:192.168.36.128-->
+        <!--
+        <property name="localDbDriver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="localDbURL" value="jdbc:oracle:thin:@192.168.77.129:1521:zzmstar"/>
+        -->
+        <!--<property name="localDbDriver" value="com.mysql.jdbc.Driver"/>
+        <property name="localDbURL"  value="jdbc:mysql://10.10.10.4:3306/nsneodb?characterEncoding=UTF-8" />
+
+        <property name="localDbUserName" value="root"/>
+        <property name="localDbUserPwd" value="ouc"/>-->
+        <property name="localDbDriver" value="com.mysql.jdbc.Driver"/>
+        <property name="localDbURL"  value="jdbc:mysql://localhost:3306/nsneodb?serverTimezone=UTC" />
+
+        <property name="localDbUserName" value="root"/>
+        <property name="localDbUserPwd" value="XaUlwbf-4mzeYD9LG"/>
+    </bean>
+
+    <!--配置Spring容器管理的实体工厂-->
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" lazy-init="true">
+        <!--
+        <property name="databasePlatform" value="org.eclipse.persistence.platform.database.OraclePlatform" />
+        -->
+
+        <property name="databasePlatform" value="org.eclipse.persistence.platform.database.MySQLPlatform" />
+        <property name="showSql" value="false" />
+    </bean>
+    <!--注意此处的 bean 的命名规范-->
+    <bean id="nsneo-JPA-ManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" lazy-init="true">
+        <property name="dataSource" ref="LiteDaoDataSource" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="persistenceUnitName" value="SpringJPAPU"></property>
+
+        <!--设置cache 模式-->
+        <!--
+        <property name="sharedCacheMode" value="NONE"/>
+        -->
+
+        <property name="loadTimeWeaver">
+            <bean class="org.eclipse.jpa.NewInstrumentationLoadTimeWeaver"/>
+        </property>
+        <property name="packagesToScan" >
+            <list>
+
+                <value>com.nsneo.pub</value>
+                <value>com.nsneo.entity</value>
+                <value>com.common.entity</value>
+                <value>addons.common</value>
+                <value>addons.samples</value>
+                <value>addons.drpCommon</value>
+                <value>addons.demo</value>
+                <value>addons.nsneo</value>
+
+            </list>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="eclipselink.connection-pool.default.initial">1</prop>
+                <prop key="eclipselink.connection-pool.default.min">16</prop>
+                <prop key="eclipselink.connection-pool.default.max">16</prop>
+                <prop key="eclipselink.ddl-generation">create-or-extend-tables</prop>
+                <prop key="eclipselink.ddl-generation.output-mode">database</prop>
+
+                <!--自定义主键生成器-->
+                <prop key="eclipselink.session.customizer">org.eclipse.jpa.UUIDSequence</prop>
+
+                <!--日志-->
+                <prop key="eclipselink.logging.level.sql">FINE</prop>
+                <prop key="eclipselink.logging.parameters">true</prop>
+            </props>
+        </property>
+    </bean>
+
+
+</beans>

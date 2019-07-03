@@ -1,0 +1,68 @@
+#简单的脚手架配置,示例,生成配置数据对象的的脚本,通过运行时指定,运行时指定多表参数
+#运行参数配置-----------------------------------------------------------------------begin
+rtconfig: # 运行时配置参数,每个脚手架都需要有此部分
+  projectPath: E:\work\prog\nsneoidea\prototype\java新技术\mvn\singleweb\nsneo #
+  srcPath: src\main\java #源码配置路径
+  metaInfoResPath: src\main\resources #资源文件路径
+  scaffold_HtmlTemplatePath: E:\work\prog\nsneoidea\prototype\java新技术\mvn\singleweb\nsneo\scaffold #脚手架html模板存放路径
+  moduleBasePackage: addons.nsneo.web #模块基础包路径,生成的模块需要写入的包和基本的模块的基本包路径
+  scaffoldHtmlConfigRelativePath:  #脚手架html配置文件相对路径
+  entityBasePackage: addons.nsneo.entity #实体对象的基本包路径
+  entityBaseClass: NsneoEntityBase #实体基类
+  scaffoldManClassName: #脚手架管理对象类型名
+#运行参数配置-----------------------------------------------------------------------end
+
+#以下为全局参数对象，全局参数会被覆盖
+params:
+  - name: 'ModuleId'
+    value: '<ScaffoldData>PreHandler.ModudleKey</ScaffoldData>'
+  - name: 'ModuleName'
+    value: '<ScaffoldData>PreHandler.ModudleName</ScaffoldData>'
+  - name: 'ClassPkgName'
+    value: 'addons.nsneo.web.<ScaffoldData>PreHandler.ModudleKey</ScaffoldData>'
+
+#以下为脚手架占位符,占位符内容为数组形式,全局占位符替换工具
+placeholderTools:
+  - name: ViewScaffold
+    classFullName: addons.common.utils.scaffold.ScaffoldModuleViewPlaceholderToolsDemo
+    defInfos:
+      - '[hello][你好这是一个全局占位符输出]'
+  - name: ACL
+    classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsAcl
+
+#视图文件输出定义
+viewDefines:
+  #数据视图文件脚手架输出
+  - outType: '[resfile][<ScaffoldData>PreHandler.ModudleKey</ScaffoldData>][ctrldata.html]'
+    templateFile: '[ctrldata.html]'
+    placeholderTools: #局部占位符替换工具
+      - name: CtrlData
+        classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsCtrlData
+        defInfos:
+          - '[maintable][NNTBL_<ScaffoldData>PreHandler.ModudleKey.TableName</ScaffoldData>]'
+
+  #数据列表文件脚手架输出
+  - outType: '[resfile][<ScaffoldData>PreHandler.ModudleKey</ScaffoldData>][datalist.html]'
+    templateFile: '[datalist.html]'
+    placeholderTools: #局部占位符替换工具
+      - name: CtrlData
+        classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsCtrlData
+        defInfos:
+          - '[maintable][NNTBL_<ScaffoldData>PreHandler.ModudleKey.TableName</ScaffoldData>]'
+
+  #页面控件占位符输出
+  - outType: '[classfile][addons.nsneo.web.<ScaffoldData>PreHandler.ModudleKey</ScaffoldData>][CtrlData]'
+    templateFile: '[CtrlData.java]'
+    placeholderTools: #局部占位符替换工具
+      - name: CtrlData
+        classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsCtrlData
+        defInfos:
+          - '[maintable][NNTBL_<ScaffoldData>PreHandler.ModudleKey.TableName</ScaffoldData>]'
+
+  #在控制体输出的占位符内容
+  - outType: '[console]'
+    templateFile: '[acl.txt]'
+
+#以下为表实体数据对象定义
+tables:<ScaffoldData>PreHandler.MT</ScaffoldData>
+

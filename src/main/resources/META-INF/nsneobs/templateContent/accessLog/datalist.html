@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+
+</head>
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <ol id="ToolbarCrumb" class="breadcrumb bs-example-popover" style="">
+
+                <div class="row">
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="ToolbarCrumb_ShowRSPanelLeft" class=""><i class="fa fa-align-justify"></i>{CtrlDynField@CtrlDynParam=ARItemShowName}</h4>
+                    </div>
+
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+
+                        <div id="paggingArea" class="btn-group ToolbarCrumb_OpArea_Pagging" btnclass="" role="group" style="">
+
+                        </div>
+
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+
+                        </div>
+                    </div>
+
+                </div>
+            </ol>
+            <!--/#ToolbarCrumb-->
+
+            <div id="RSPanel" class="row">
+
+                <div id="RSPanel_Left" defualtshow="true" class="col-lg-2 col-sm-2 col-md-2  RSPanel-Left-Container">
+                    <div class="RSPanel-Left-Container-child-form">
+                        <form id="queryform">
+							<div class="form-group">
+                                <label for="CommonQueryCondition:str1">用户</label>
+                                <input type="text" class="form-control" name="CommonQueryCondition:str1" id="CommonQueryCondition:str1" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CommonQueryCondition:str2">会话编码</label>
+                                <input type="text" class="form-control" name="CommonQueryCondition:str2" id="CommonQueryCondition:str2" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CommonQueryCondition:str3">模块</label>
+                                <input type="text" class="form-control" name="CommonQueryCondition:str3" id="CommonQueryCondition:str3" value="">
+                            </div>
+							<div class="form-group">
+                                <label for="CommonQueryCondition:date1">开始时间</label>
+                                <input readonly="readonly" class="form-control form_datetime" name="CommonQueryCondition:date1" id="CommonQueryCondition:date1" type="text"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CommonQueryCondition:date2">结束时间</label>
+                                <input readonly="readonly" class="form-control form_datetime" name="CommonQueryCondition:date2" id="CommonQueryCondition:date2" type="text"/>
+                            </div>
+                            
+                            <div style="text-align: center;margin-top:10px;">
+                                <button id="querybtn" class="btn btn-primary" type="button"><i class="fa fa-search cust-btn-imgtxt"></i>查询</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!--/.RSPanel-Left-Container-child-->
+
+                </div>
+                <!--/#RSPanel_Left 左侧侧边栏区域-->
+
+                <div id="RSPanel_Right" class="col-lg-12" singledyngrid="dhtmlx">
+
+                    <div id="gridbox" class="custom_singlegridinpage" style="width: 100%;height: 100%"></div>
+					<div id="pagingArea" style="padding-left: 10px;"></div>
+                </div>
+                <!--/#RSPanel_Right 右侧侧区域-->
+
+            </div>
+            <!--/.RSPanel row-->
+
+        </div>
+        <!-- /#page-wrapper-content -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--bootstrap-datetimepicker-->
+<link href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/bowercomponents/datetimepicker/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/bowercomponents/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/bowercomponents/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<!--dhtmlx gridx-->
+<link rel="stylesheet" type="text/css" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/dhtmlx/skins/web/dhtmlx.css" />
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/dhtmlx/codebase/dhtmlx.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/exjs/dhtmlx_fun.js"></script>
+
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+    //模块可访问权限定义
+    var moduleacrs = {WebViewModuleAccessPowerListCtrl};
+</script>
+
+<wcignore><script>
+    //创建通用访问路径对象
+    function createAction(optype,dataid) {
+        //return CurrentPageUrl+"/data.json?DoSomething="+optype+"&CurrentDataId="+dataid;
+        return formatCurrentAddressAction("data.json",optype,dataid);
+    }
+
+    //全局表格对象
+    var dhtmlxDataGridObj = null;
+
+
+
+    //页面尺寸变化函数
+    function pfSettingWithAndHeight(width, height){
+
+    	$("#gridbox").width($("#RSPanel_Right").width());
+		$("#gridbox").height($("#RSPanel_Right").height()-30);
+
+        if(dhtmlxDataGridObj==null){
+            //
+            ajaxGetAccessServerEx(createAction('query',''), function(result){
+                dhtmlxDataGridObj = createDhtmlxGridByJson({boxid:'gridbox',gridoutsucc:function(dtmlxgridobj,result,globaloptions){
+
+                    dynSettingDhtmlxHeadWidthPlus('#gridbox',dtmlxgridobj,result,globaloptions);
+
+                }},result);
+            });
+        }else{
+            try{
+                dhtmlxDataGridObj.setSizes($("#RSPanel_Right").innerWidth(),$("#RSPanel_Right").innerHeight()-30);
+
+            }catch(e){
+                alert(e);
+            }
+        }
+    }
+
+    //促使系统重绘数据
+    function pfCusShowAndHideSilder(showorhiddenflag) {
+        $("#RSPanel_Right").simulate("resize");
+    }
+
+    //文件上传对象
+
+    $(function(){
+        $(".form_datetime").datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            format: 'yyyy-mm-dd'
+        });
+        
+      //开始时间默认选择去年的今天,结束时间默认是今天
+		var mydate = new Date();
+	    var startYear = mydate.getFullYear()-1;
+	    var endYear = mydate.getFullYear();
+	    var month = mydate.getMonth()+1;
+	    if(month<10){
+	    	month = "0"+month;
+	    }
+	    var day = mydate.getDate();
+	    if(day<10){
+	    	day = "0"+day;
+	    }
+	    document.getElementById("CommonQueryCondition:date1").value=startYear + "-" + month + "-" + day;//开始时间
+	    document.getElementById("CommonQueryCondition:date2").value=endYear + "-" + month + "-" + day;//结束时间
+	    
+        //显示错误消息对话框
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+        try {
+            $("#queryform").FormEnterInvoke();
+        } catch (e) {
+            alert(e);
+        }
+
+        //点击查询按钮调用该方法
+        $("#querybtn").click(function () {
+        	try{
+
+        		$.getJSON(createAction('query',''),$('#queryform').serialize(),function (jsonObj) {
+                    if(dhtmlxDataGridObj!=null){
+                        dhtmlxDataGridObj.clearAll();
+                        dhtmlxDataGridObj.parse(jsonObj.data,"json");
+                    }
+                })
+                /*
+                ajaxAccessServer(
+                        {
+                            formid:"queryform",
+                            //data:$("#queryform").serialize(),
+                            url:createAction('query',''),
+                            clearForm:false,
+                            successjson:function (jsonObj) {
+                                if(dhtmlxDataGridObj!=null){
+                                    dhtmlxDataGridObj.clearAll();
+                                    dhtmlxDataGridObj.parse(jsonObj.data,"json");
+                                }
+                            }
+                        });*/
+
+            }catch (e){
+                alert(e);
+            }
+        })
+    });
+
+</script></wcignore>
+</body>
+
+</html>

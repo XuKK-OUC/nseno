@@ -1,0 +1,52 @@
+\{
+<wcignore>
+    "pagination": "true",
+    "singleSelect":"true",
+    "clickToSelect":"true",
+    "pageSize":"25",
+    "pageList":"2,10,25,50,75,100",
+    "idField":"id",
+    "uniqueId":"id",
+    "columns": [{
+    "checkbox": "true",
+    "width":"60px",
+    "title": "选择"
+    },{
+    "title": "序号",
+    "rowno": "true",
+    "width":"60px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: center;"
+    },{
+    "field": "orgCode",
+    "title": "编码",
+    "sortable":"true",
+    "width":"200px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: left;white-space: nowrap;"
+    },{
+    "field": "orgName",
+    "title": "名称",
+    "sortable":"true","width":"200px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: left;white-space: nowrap;"
+    },{
+    "field": "parentOrgEntityName",
+    "title": "上级",
+    "sortable":"true","width":"200px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: left;white-space: nowrap;"
+    },{
+    "field": "address",
+    "title": "地址",
+    "sortable":"true",
+    "headStyle":"text-align: center;"
+    }
+    ],
+</wcignore>
+    "data": [
+    {dataout:id,orgCode,orgName,parentOrgEntityName,orgCaption,parentOrgId,address}
+    ],
+    "zNodes":{textout:dataTree},
+    "datastate":"{datastate}"
+\}

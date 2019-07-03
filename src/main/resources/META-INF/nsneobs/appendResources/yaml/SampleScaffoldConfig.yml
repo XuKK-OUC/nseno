@@ -1,0 +1,76 @@
+#简单的脚手架配置,示例
+#运行参数配置-----------------------------------------------------------------------begin
+rtconfig: # 运行时配置参数,每个脚手架都需要有此部分
+  projectPath: E:\work\prog\nsneoidea\nsneo #
+  srcPath: src #源码配置路径
+  metaInfoResPath: src\main\resources #资源文件路径
+  scaffold_HtmlTemplatePath: devrecord\scaffold\demo #脚手架html模板存放路径
+  moduleBasePackage: addons.demo.web #模块基础包路径,生成的模块需要写入的包和基本的模块的基本包路径
+  scaffoldHtmlConfigRelativePath: demo #脚手架html配置文件相对路径
+  entityBasePackage: addons.demo.entity #实体对象的基本包路径
+  entityBaseClass: DemoEntityBase #实体基类
+  scaffoldManClassName: #脚手架管理对象类型名
+#运行参数配置-----------------------------------------------------------------------end
+
+#以下为全局参数对象，全局参数会被覆盖
+params:
+  - name: 'ModuleId'
+    value: 'sfDemo'
+  - name: 'ModuleName'
+    value: '脚手架生成模块'
+  - name: 'ClassPkgName'
+    value: 'addons.demo.web.sfDemo'
+
+#以下为脚手架占位符,占位符内容为数组形式,全局占位符替换工具
+placeholderTools:
+  - name: ViewScaffold
+    classFullName: addons.common.utils.scaffold.ScaffoldModuleViewPlaceholderToolsDemo
+    defInfos:
+      - '[hello][你好这是一个全局占位符输出]'
+  - name: ACL
+    classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsAcl
+
+#视图文件输出定义
+viewDefines:
+  #数据视图文件脚手架输出
+  - outType: '[resfile][sfDemo][ctrldata.html]'
+    templateFile: '[ctrldata.html]'
+    placeholderTools: #局部占位符替换工具
+      - name: CtrlData
+        classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsCtrlData
+        defInfos:
+          - '[hello][你好这是一个局部占位符输出]'
+          - '[maintable][Demo_SfTable]'
+
+  #数据列表文件脚手架输出
+  - outType: '[resfile][sfDemo][datalist.html]'
+    templateFile: '[datalist.html]'
+    placeholderTools: #局部占位符替换工具
+      - name: CtrlData
+        classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsCtrlData
+        defInfos:
+          - '[hello][你好这是一个局部占位符输出]'
+          - '[maintable][Demo_SfTable]'
+
+
+  #页面控件占位符输出
+  - outType: '[classfile][addons.demo.web.sfDemo][CtrlData]'
+    templateFile: '[CtrlData.java]'
+    placeholderTools: #局部占位符替换工具
+      - name: CtrlData
+        classFullName: addons.common.utils.scaffold.yaml.ScaffoldModuleViewPlaceholderToolsCtrlData
+        defInfos:
+          - '[hello][你好这是一个局部占位符输出]'
+          - '[maintable][Demo_SfTable]'
+
+  #在控制体输出的占位符内容
+  - outType: '[console]'
+    templateFile: '[acl.txt]'
+
+#以下为表实体数据对象定义
+tables:
+  - head: '[Table][脚手架模块实体][Demo_SfTable][SfDemoEntity]'
+    columns:
+      - '[代码] [varchar2](100) code'
+      - '[名称] [varchar2](200) name'
+

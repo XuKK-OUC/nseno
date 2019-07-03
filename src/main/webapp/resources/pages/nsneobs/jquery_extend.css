@@ -1,0 +1,26 @@
+.nsneocbbox{}
+.nsneocbbox .form-control[readonly]{
+    background-color:#fff ;
+}
+.nsneocbbox .input-group-addon{
+    border-left:none ;
+}
+.nsneocbbox .dropdown-menu{
+    width: 100%;
+}
+
+.nsneocbbox .dropdown-menu li{
+    padding: 5px 10px;
+}
+
+.nsneocbbox .dropdown-menu li input[type=checkbox]{
+    margin-right: 10px;
+}
+.nsneocbbox .dropdown-menu li input[type=radio]{
+    margin-right: 10px;
+}
+
+.nsneocbbox .dropdown-menu .divider{
+    padding: 0px !important;
+    margin-bottom: 0px !important; margin-top: 0px !important;
+}

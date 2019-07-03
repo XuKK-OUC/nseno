@@ -1,0 +1,6 @@
+        <AccessResource id="<ScaffoldData>Acl.ModuleId</ScaffoldData>.html" name="<ScaffoldData>Acl.ModuleName</ScaffoldData>" showName="<ScaffoldData>Acl.ModuleName</ScaffoldData>" filterPath="/neodo"
+                                grantGroup=""
+                                autoCreateAddress="true" arRoleGroupId=""
+                                hiddenParam="
+                                Action@:<ScaffoldData>Acl.ModuleId</ScaffoldData>.datalist;
+                                Action@data.json:common.preAnaysleInnerJsonView::<ScaffoldData>Acl.ModuleId</ScaffoldData>.ctrldata,<ScaffoldData>Acl.ClassPkgName</ScaffoldData>.CtrlData;"/>

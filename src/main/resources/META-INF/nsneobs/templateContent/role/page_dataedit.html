@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>角色编辑</title>
+
+</head>
+
+{roleMan.RoleEditDo@ErrorRedirectPageId=role.roleList}
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <ol id="ToolbarCrumb" class="breadcrumb" style="">
+                <div class="row">
+
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="querycondit_list" class="querycondit_list" style="" title="返回列表" onclick="window.open('{CtrlDynField@CtrlDynParam=CurrentUrl}/toquery','_self')"><i class="fa fa-reply "></i>角色信息编辑</h4>
+                    </div>
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+                        </div>
+
+                    </div>
+
+                </div>
+            </ol>
+            <!-- /#toolbarcrumb-->
+
+            <div id="EDPanel" class="row">
+
+                <div id="EDPanel_Right" class="col-xs-12">
+
+                    <div class="EDPanel_Right_Area" style="">
+
+                        <form id="mainform" name="mainform" targeturl="{CtrlDynField@CtrlDynParam=CurrentUrl}/" method="post" action="#">
+
+                            {MultiDataEditCtrl@DynSettingTemplateFile=./role/ctrl_dataedit.html}
+
+                            <input type="hidden" value="" id="rsidlt" name="rsidlt">
+                            <input type="hidden" value="" id="rspowerlt" name="rspowerlt">
+                            <input type="hidden" value="{CtrlDynField@CtrlDynParam=AdminRoleType}" id="adminRoleTypeDef">
+
+                        </form>
+                        <!-- /#mainform-->
+
+                    </div>
+                    <!-- /#EDPanel_Right_Area-->
+
+
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+
+                                <div class="panel-heading" style="padding-bottom: 4px; padding-top: 2px;">
+                                    <h4>可访问资源及访问权限</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="100px">类型</th>
+                                            <th width="200px">资源</th>
+                                            <th width="60px"><input type="checkbox" name="" id="CheckBox_SelectALL"></th>
+                                            <th>权限</th>
+                                        </tr>
+                                        </thead>
+                                        <style>
+
+                                        </style>
+                                        <tbody id="rstable">
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /#EDPanel_Right-->
+
+            </div>
+            <!-- /#EDPanel row-->
+
+        </div>
+        <!-- /#page-wrapper-content -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+    //引入所有命令数据
+    var ModuleCmdLt = [{WebViewCmdListCtrl@RowAppendString=,}];
+    var RSPowers = {RoleRSWebOutViewCtrl};
+</script>
+
+<wcignore><script>
+
+
+    function createRSPWRS(datas,isadmin){
+
+        //alert("isadmin="+isadmin);
+        var htmlstr = "";//"<tr><td></td><td></td><td></td><td></td></tr>";
+
+        for(rsti=0;rsti<datas.length;rsti++){
+            var rstypedata = datas[rsti];
+            var rscount = rstypedata.rs.length;
+            if(rscount>0){
+                htmlstr+="<tr><td rowspan='"+(rscount+1)+"' class='Role-Td-RSTypeName'>"+rstypedata.name+"</td><td colspan='3' class='Role-Td-Blank-Row'></td></tr>";
+
+                for(rsi=0;rsi<rstypedata.rs.length;rsi++){
+                    var rsdata =rstypedata.rs[rsi];
+
+                    var dsastr = "";
+                    var enAblestr = " enablepowervalue ";
+                    if(rsdata.noLimit){
+                        dsastr = " disabled='disabled' checked='checked' ";
+                        enAblestr = "";
+                    }else{
+                        if(isadmin&&rsdata.admin){
+                            dsastr = " disabled='disabled' checked='checked' ";
+                            enAblestr = "";
+                        }
+                    }
+
+                    var dtstr = "";
+                    if(dsastr==""){
+                        if(rsdata.mt){
+                            dtstr=" checked='checked' ";
+                        }
+                    }
+
+                    htmlstr+="<tr><td class='Role-Td-RSName'>"+rsdata.name+"</td>"
+                            +"<td class='Role-Td-ContentCenter'>"
+                            +"<input type='checkbox' "+dsastr+" "+dtstr+" value='"+rsdata.id+"' powerclass='rsid-"+rsdata.id+"' id='rsid-"+rsdata.id+"' class='role-rsid "+enAblestr+" ' />"
+                            +"</td>";
+
+                    htmlstr+="<td>";
+
+                    for(pri=0;pri<rsdata.pwrs.length;pri++){
+                        var pwrso = rsdata.pwrs[pri];
+
+                        dtstr = "";
+                        if(dsastr==""){
+                            if(pwrso.mt){
+                                dtstr=" checked='checked' ";
+                            }
+                        }
+
+                        htmlstr+="<label class='checkbox-inline Role-checkbox-inline-power'>"
+                                +"<input type='checkbox' "+dsastr+" "+dtstr+" class='rsid-"+rsdata.id+" rspower "+enAblestr+" ' rsid='rsid-"+rsdata.id+"' value='"+rsdata.id+"-"+pwrso.id+"'> "
+                                +pwrso.name
+                                +"</label>";
+                    }
+
+                    htmlstr+="</td></tr>";
+                }
+            }
+        }
+
+        return htmlstr;
+    }
+
+    function settingrsvalue(elementObj,globalOptions,btnOutParamObj,btnGroupArea){
+
+        //alert("保存点击");
+        var rsidlt = "";
+        try{
+            $(".role-rsid:not(:disabled):checked").each(function(){
+                rsidlt+=$(this).val()+",";
+            })
+        }catch(e){
+            alert(e);
+        }
+        $("#rsidlt").val(rsidlt);
+        //alert("rsidlt="+$("#rsidlt").val());
+
+        var powerrslt = "";
+        try{
+            $(".rspower:not(:disabled):checked").each(function(){
+                powerrslt+=$(this).val()+",";
+            })
+        }catch(e){
+            alert(e);
+        }
+        $("#rspowerlt").val(powerrslt);
+        //alert("powerrslt="+$("#rspowerlt").val());
+
+        return true;
+    }
+
+    $(function(){
+        //命令区对象
+        try {
+            $("#BtnListOpArea").VisualFormIconBtnGroup({
+                CmdDataObjs: ModuleCmdLt,
+                formObjId: "mainform"
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+        //PageAlertArea
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+        $("#rstable").append(createRSPWRS(RSPowers,($("#adminRoleTypeDef").val()==$("#roleType").val())));
+
+        $(".role-rsid").click(function(){
+            var clsName = $(this).attr("powerclass");
+            if ($(this).is(':checked')) {
+                $("."+clsName).prop("checked",true);
+            }else{
+                $("."+clsName).prop("checked",false);
+            }
+        });
+
+        $(".rspower").click(function(){
+            var pclsName = $(this).attr("rsid");
+            var clsName = $("#"+pclsName).attr("powerclass");
+
+            if (!$("."+clsName).is(':checked')) {
+                $("#"+pclsName).prop("checked",false);
+            }else{
+                $("#"+pclsName).prop("checked",true);
+            }
+        });
+        
+        $("#CheckBox_SelectALL").click(function () {
+            //.enablepowervalue
+            //alert('选择所有的checkbox框');
+            if ($(this).is(':checked')) {
+                $(".enablepowervalue").prop("checked",true);
+            }else{
+                $(".enablepowervalue").prop("checked",false);
+            }
+        });
+
+    });
+
+</script></wcignore>
+
+<script>
+</script>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

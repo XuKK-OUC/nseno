@@ -1,0 +1,41 @@
+\{
+<wcignore>
+    "pagination": "true",
+    "singleSelect":"true",
+    "clickToSelect":"true",
+    "pageSize":"25",
+    "pageList":"2,10,25,50,75,100",
+    "idField":"id",
+    "uniqueId":"id",
+    "columns": [{
+    "checkbox": "true",
+    "width":"60px",
+    "title": "选择"
+    },{
+    "title": "序号",
+    "rowno": "true",
+    "width":"80px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: center;"
+    },{
+    "field": "resName",
+    "title": "资源名称",
+    "sortable":"true","width":"200px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: left;white-space: nowrap;"
+    },{
+    "field": "mainImgResUrl",
+    "title": "主图访问路径",
+    "sortable":"true",
+    "width":"600px",
+    "headStyle":"text-align: center;",
+    "cellStyle":"text-align: left;white-space: nowrap;"
+    }
+    ],
+</wcignore>
+"data": [
+{dataout:id,resName,mainImgResUrl}
+],
+"imgBaseUrl":"{textout:imgBaseUrl}",
+"datastate":"{datastate}"
+\}

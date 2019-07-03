@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+
+</head>
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <ol id="ToolbarCrumb" class="breadcrumb bs-example-popover" style="">
+
+                <div class="row">
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="" class=""><i class="fa fa-random">
+
+                        </i>{CtrlDynField@CtrlDynParam=ARItemShowName}&nbsp;&nbsp;<span style="font-size:14px" id="SampleRecordNum"></span></h4>
+                    </div>
+
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+
+                        <div id="paggingArea" class="btn-group ToolbarCrumb_OpArea_Pagging" btnclass="" role="group" style="">
+
+                        </div>
+
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+
+                        </div>
+
+
+                        <div class="input-group custom-search-form ToolbarCrumb_OpArea_SampleQuery" style="">
+                            <input id="SampleQueryInput" class="form-control" type="text" placeholder="请输入名称">
+                            <span class="input-group-btn">
+								<button id="SampleQueryInputBtn" class="btn btn-primary" type="button">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </ol>
+            <!--/#ToolbarCrumb-->
+
+            <div id="RSPanel" class="row">
+
+                <div id="RSPanel_Left" defualtshow="false" class="col-lg-2 col-sm-2 col-md-2  RSPanel-Left-Container">
+                    <div class="RSPanel-Left-Container-child-form">
+                        <form id="queryform">
+
+                            <!--/begin 左侧查询条件区-->
+                            <!--/end 左侧查询条件区-->
+
+                            <!--左侧查询按钮区-->
+                            <div style="text-align: center;margin-top:10px; ">
+                                <button id="querybtn" class="btn btn-primary" type="button"><i class="fa fa-search cust-btn-imgtxt"></i>查询</button>
+                            </div>
+                            <!--/#querybtn-->
+
+                        </form>
+                        <!--/#queryform-->
+
+                    </div>
+                    <!--/.RSPanel-Left-Container-child-->
+
+                </div>
+                <!--/#RSPanel_Left 左侧侧边栏区域-->
+
+                <div id="RSPanel_Right" class="col-lg-12" singledyngrid="">
+
+
+                    <div class="row">
+
+                        <table id="bst_table" class="table dataTable table-striped table-bordered table-hover">
+
+                        </table>
+                        <!--/# bst_table-->
+
+                    </div>
+                    <!--/# row RSPanel_Right_DataTable-->
+
+
+                </div>
+                <!--/#RSPanel_Right 右侧侧区域-->
+
+            </div>
+            <!--/.RSPanel row-->
+
+        </div>
+        <!-- /#page-wrapper-content -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- input modal -->
+<div id="inputmodaldialog" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog modal-lg" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="inputmodaldialoglabel">window客户端注册管理</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <form id="mainform">
+                        <input type="hidden" name="WinClientEntity:id" id="WinClientEntity:id">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:code">客户端编码</label>
+                                <input type="text" class="form-control" name="WinClientEntity:code" id="WinClientEntity:code" value="">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:name">客户端名称</label>
+                                <input type="text" class="form-control" name="WinClientEntity:name" id="WinClientEntity:name" value="">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:type">客户端类型</label>
+                                <input type="text" class="form-control" name="WinClientEntity:type" id="WinClientEntity:type" value="">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:state">客户端状态</label>
+                                <input type="text" class="form-control" name="WinClientEntity:state" id="WinClientEntity:state" value="">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:machineId">客户端唯一码</label>
+                                <input type="text" class="form-control" name="WinClientEntity:machineId" id="WinClientEntity:machineId" value="">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:networkIp">客户端网络IP</label>
+                                <input type="text" class="form-control" name="WinClientEntity:networkIp" id="WinClientEntity:networkIp" value="">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:createDateTime">创建时间</label>
+                                <input type="text" class="form-control" name="" id="WinClientEntity:createDateTime" value="" readonly="readonly">
+                            </div>
+
+
+                            <div class="col-sm-4">
+                                <label for="WinClientEntity:lastModifyDateTime">最后修改时间</label>
+                                <input type="text" class="form-control" name="" id="WinClientEntity:lastModifyDateTime" value="" readonly="readonly">
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="inputmodaldialog-confirm">确定</button>
+
+            </div>
+
+
+        </div>
+        <!--/.modal-content-->
+    </div>
+    <!--/.modal-dialog modal-lg-->
+</div>
+<!-- /# inputmodaldialog -->
+
+<!--bootstrap-datetimepicker-->
+<link href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/datetimepicker/css/bootstrap-datetimepicker.min.css"
+      type="text/css" rel="stylesheet"/>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
+        charset="UTF-8"></script>
+
+<!-- bootstrap table-->
+<link rel="stylesheet"
+      href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/bootstrap-table.css">
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/bootstrap-table.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/exjs/dhtmlx_fun.js"></script>
+
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+    //模块可访问权限定义
+    var moduleacrs = {WebViewModuleAccessPowerListCtrl};
+</script>
+
+<wcignore>
+    <style>
+        .fixed-table-body .dataTable {
+            border-top-width: 0px;
+            border-left-width: 0px;
+        }
+    </style>
+    <script>
+        //创建通用访问路径对象
+        function createAction(optype, dataid) {
+            return formatCurrentAddressAction("data.json", optype, dataid);
+        }
+
+        //引入所有命令数据
+        var ModuleCmdLt = [
+            {
+                "id": "addbtn",
+                "name": "新增",
+                "btnShowText": "新增",
+                "caption": "新增数据",
+                "icon": "fa fa-plus",
+                "reqPowers": [],
+                "btnclass": "",
+                "clickfunobj": function () {
+                    //通知服务器创建新记录
+                    ajaxAccessServerEx({
+                        url: createAction('add'), async: true, successjson: function (resultJson) {
+                            //显示编辑对话框
+                            console.log(resultJson);
+                            $("#inputmodaldialog").VisualModalInputDialog({
+                                initsetting: {formid: 'mainform', clearflag: true, json: resultJson.data[0], namespace: "WinClientEntity"},
+                                confirmfun: function () {
+                                    //提交数据
+                                    ajaxAccessServerEx({
+                                        url: createAction('save'), formid: 'mainform', async: true, successjson: function (resultJson) {
+
+                                            var insertData = {
+                                                index: 0,
+                                                row: resultJson.data[0]
+                                            };
+                                            dynDataGridObj.bootstrapTable('insertRow', insertData);
+                                            $("#inputmodaldialog").modal('hide');
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+
+                }
+            }, {
+                "id": "editbtn",
+                "name": "编辑",
+                "btnShowText": "编辑",
+                "caption": "编辑数据",
+                "icon": "fa fa-edit",
+                "reqPowers": [],
+                "btnclass": "",
+                "clickfunobj": function () {
+                    var selects = dynDataGridObj.bootstrapTable('getSelectionsAndIndex', "id");
+                    if (selects == null || selects.length == 0) {
+                        $("#alertmodaldialog").VisualAlertModalMsgDialog({msgcontent: '请选择要编辑的数据'});
+                        return;
+                    }
+
+                    //通知服务器加载记录
+                    ajaxAccessServerEx({
+                        url: createAction('edit', selects[0].id), async: true, successjson: function (resultJson) {
+                            //显示编辑对话框
+                            console.log(resultJson);
+                            $("#inputmodaldialog").VisualModalInputDialog({
+                                initsetting: {formid: 'mainform', clearflag: true, json: resultJson.data[0], namespace: "WinClientEntity"},
+                                confirmfun: function () {
+                                    //提交数据
+                                    console.log(createAction('save'));
+                                    ajaxAccessServerEx({
+                                        url: createAction('save'), formid: 'mainform', async: true, successjson: function (resultJson) {
+                                            console.log(resultJson);
+                                            selects[0].row = resultJson.data[0];
+                                            dynDataGridObj.bootstrapTable('updateRow', selects[0]);
+                                            $("#inputmodaldialog").modal('hide');
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            }, {
+                "id": "deletebtn",
+                "name": "删除",
+                "btnShowText": "删除",
+                "caption": "删除数据",
+                "icon": "fa fa-times",
+                "reqPowers": [],
+                "btnclass":" btn btn-danger ",
+                "clickfunobj": function () {
+
+                    var selects = dynDataGridObj.bootstrapTable('getSelectionsAndIndex', "id");
+                    if (selects == null || selects.length == 0) {
+                        $("#alertmodaldialog").VisualAlertModalMsgDialog({msgcontent: '请选择要删除的数据'});
+                        return;
+                    }
+                    if (!confirm('确实要删除该数据吗？')) {
+                        return;
+                    }
+                    //通知服务器加载记录
+                    ajaxAccessServerEx({
+                        url: createAction('delete', selects[0].id), async: true, successjson: function (resultJson) {
+                            //删除数据
+                            dynDataGridObj.bootstrapTable('removeByUniqueId', selects[0].id);
+                        }
+                    });
+                }
+            }
+        ];
+
+
+        //全局表格对象
+        var dynDataGridObj = null;
+
+        //页面尺寸变化函数
+        function pfSettingWithAndHeight(width, height) {
+            //设置表格区域的高度,表格对象的高度需要减去分页操作区的高度
+            $("#RSPanel_Right").find(".fixed-table-body").height(height - $(".clearfix").outerHeight() - 6);
+        }
+
+
+        $(function () {
+            //日期类型输出框
+            $(".form_datetime").datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0,
+                format: 'yyyy-mm-dd'
+            });
+
+            //大写
+            $(".UpperCaseChar").ChangeValueUpperOrLower();
+
+            //显示错误消息对话框
+            try {
+                $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+            } catch (e) {
+                alert(e);
+            }
+
+
+            //命令按钮
+            try {
+                $("#BtnListOpArea").VisualFormIconBtnGroup({
+                    CmdDataObjs: ModuleCmdLt, resPowers: moduleacrs.powers
+                });
+            } catch (e) {
+                alert(e);
+            }
+
+            //点击查询按钮调用该方法
+            $("#SampleQueryInputBtn").click(function () {
+                ajaxGetAccessServerEx(createAction('query', $("#SampleQueryInput").val()), function (result) {
+                    console.log(result);
+
+                    if (dynDataGridObj == null) {
+                        dynDataGridObj = $('#bst_table').bootstrapTable(result);
+                        $(window).resize();
+                    } else {
+                        dynDataGridObj.bootstrapTable('load', result.data);
+                    }
+
+                });
+            });
+
+
+            //模拟事件
+            $("#SampleQueryInputBtn").click();
+        });
+
+    </script>
+</wcignore>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

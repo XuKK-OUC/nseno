@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AccessResourceSet defaultNamespace="demo">
+
+    <AccessResourceGroup namespace="demo">
+
+        <DesktopSet defualtUuid="desktop001"/>
+
+        <SessionControl>
+
+            <ControlItem id="" name="" type="DeleteSession" sessionName="QueryResultList"/>
+            <ControlItem id="" name="" type="DeleteSession" sessionName="QueryResultListforSecond"/>
+            <ControlItem id="" name="" type="DeleteSession" sessionName="BPMContextSession"/>
+
+        </SessionControl>
+
+        <RoleGroup>
+            <RoleGroupItem id="" name="缺省分组"/>
+        </RoleGroup>
+
+        <Group>
+            <GroupItem id="" name="默认组" index="1" />
+            <GroupItem id="sys" name="系统管理" index="100"/>
+            <GroupItem id="common" name="通用模块" index="110"/>
+            <GroupItem id="client" name="客户端" index="150"/>
+            <GroupItem id="demo" name="功能示例" index="600"/>
+        </Group>
+        <!--
+                pvs[0] = mc.actionName; 默认为 ""
+                pvs[1] = mc.viewId; 默认为 nsneo.login_view,为可访问资源的全路径名+"_view"后缀
+                pvs[2] = mc.reqpower;请求权限
+                pvs[3] = mc.appendParam;访问的附件
+                pvs[4] = mc.sessionName;
+                pvs[5] = ""+mc.noSaveSession;
+                pvs[6] = ""+mc.sysDeleteSession;
+                pvs[7] = ""+mc.cachePage;
+        -->
+        <AccessResource id="" name="根菜单">
+
+            <!--首页必须为 ./nsneo/index 默认视图编码:login_view -->
+            <AccessResource id="login"  address="./neonu/index" name="登录页面" noLimitAccess="是" canAuthorized="否" hiddenParam="" showARItem="false"/>
+
+            <!--外部系统调用界面 通过 诸如 http://localhost:8080/neonu/outInvoke/refreshJPACache 的url 实现外部系统调用-->
+            <AccessResource id="outInvoke" defaultViewId="common.OutInvoke" address="./neonu/outInvoke" name="外部系统调用界面" noLimitAccess="是" canAuthorized="否" hiddenParam="" showARItem="false"/>
+            <!--外部系统调用界面 通过 诸如 http://localhost:8080/neonu/returnOutInvoke?DoSomething=jsonDataTransfer&type=hello&jsonData=BASE64DATA 的url 实现外部系统调用-->
+            <AccessResource id="returnOutInvoke" defaultViewId="common.OutInvokeReturn" address="./neonu/returnOutInvoke" name="外部系统调用界面" noLimitAccess="是" canAuthorized="否" hiddenParam="" showARItem="false"/>
+
+            <!--桌面:desktop_view -->
+            <AccessResource id="desktop" defaultViewId="demo.demoBlank" uuid="desktop001" address="./neodo/desktop" name="主页" noLimitAccess="是" canAuthorized="否" showARItem="false" hiddenParam=""/>
+            <!--缺省的桌面内容:workcontent_view -->
+            <AccessResource id="workcontent" defaultViewId="demo.demoBlank" type="menu" uuid="" address="./neodo/workcontent" name="仪表盘" icons="fa fa-fw fa-right fa-dashboard" noLimitAccess="是" canAuthorized="否" showARItem="true" hiddenParam=""/>
+
+            <AccessResource id="siteindex.html" defaultViewId="frontpages.siteindex" address="./neonu/siteindex.html" name="前端网站首页" noLimitAccess="是" canAuthorized="否" hiddenParam="" showARItem="false"/>
+
+
+
+            <!--*****************************************************************************************************-->
+
+
+            <AccessResource id="nsneo-templatectrl-demo.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:common.preAnaysleInnerJsonView::demo.simple.nsneo-templatectrl-demo,addons.haier.controller.demo.TemplateCtrlData;"/>
+
+
+
+            <AccessResource id="nsneo-templatectrl-demoimg.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:demo.simple.preAnaysleInnerJsonView::demo.simple.nsneo-templatectrl-demoimg,addons.haier.b2b.ctrlsv2.CosmoNsneoSliderListCtrl;"/>
+
+
+            <!--第二种业务注入方式-->
+            <AccessResource id="nsneo-templatectrl-demoimg2.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:demo.simple.preAnaysleInjectionTmplCtrl;">
+                <ParamSet>
+                    <Param id="action-tmpl">
+                        <ParamValue id="" value="addons.haier.b2b.ctrlsv2.CosmoNsneoSliderListCtrl@DynSettingTemplateFile=./demo/simple/nsneo-templatectrl-demoimg.html;slidertype=FirstPage-1"/>
+                    </Param>
+                </ParamSet>
+            </AccessResource>
+
+
+            <!--第二种业务注入方式-->
+            <AccessResource id="nsneo-templatectrl-demo2.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:demo.simple.preAnaysleInjectionTmplCtrl;">
+                <ParamSet>
+                    <Param id="action-tmpl">
+                        <ParamValue id="" value="addons.haier.controller.demo.TemplateCtrlData@DynSettingTemplateFile=./demo/simple/nsneo-templatectrl-demo.html"/>
+                    </Param>
+                </ParamSet>
+            </AccessResource>
+
+
+            <!--第二种业务注入方式，第三个-->
+            <AccessResource id="nsneo-templatectrl-demo3.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:demo.simple.preAnaysleInjectionTmplCtrl;">
+                <ParamSet>
+                    <Param id="action-tmpl">
+                        <ParamValue id="" value="addons.haier.b2b.ctrlsv2.CosmoNsneoProductListCtrl@DynSettingTemplateFile=./demo/simple/nsneo-templatectrl-demoimg2.html"/>
+                    </Param>
+                </ParamSet>
+            </AccessResource>
+
+            <!--第二种业务注入方式，第4个-->
+            <AccessResource id="nsneo-templatectrl-demo32.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:demo.simple.preAnaysleInjectionTmplCtrl;">
+                <ParamSet>
+                    <Param id="action-tmpl">
+                        <ParamValue id="" value="addons.haier.b2b.ctrlsv2.CosmoNsneoGoodProductListCtrl@DynSettingTemplateFile=./demo/simple/nsneo-templatectrl-demoimg3.html"/>
+                    </Param>
+                </ParamSet>
+            </AccessResource>
+
+            <!--第二种业务注入方式，第4个-->
+            <AccessResource id="nsneo-templatectrl-demo32.html" defaultViewId=""
+                            address="" filterPath="./neonu" autoCreateAddress="true"
+                            name="界面模板输出示例" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                            hiddenParam="
+                                Action@:demo.simple.preAnaysleInjectionTmplCtrl;">
+                <ParamSet>
+                    <Param id="action-tmpl">
+                        <ParamValue id="" value="addons.haier.b2b.ctrlsv2.CosmoNsneoGoodProductListCtrl@DynSettingTemplateFile=./demo/simple/nsneo-templatectrl-demoimg3.html"/>
+                    </Param>
+                </ParamSet>
+            </AccessResource>
+
+
+            <AccessResource id="sys" type="menu" name="系统管理" icons="fa fa-fw fa-right fa-windows">
+
+                <AccessResource id="up" name="用户权限">
+                    <AccessResource id="user" name="用户管理" address="./neodo/sysup/user" arRoleGroupId="sys" hiddenParam="" grantGroup="01@新建;02@查看;03@删除;04@保存;">
+                        <Action>
+                            <Cmds>
+                                <Cmd id="query" name="查询" showIndex="00" reqPower="" viewId="00;" canVisual="false" outParam="" positionType="" actionName="query" param=""/>
+                                <Cmd name="新建" showIndex="01" viewId="00;01;" reqPower="01" icon="fa fa-plus" positionType="" actionName="editCreate"/>
+                                <Cmd name="查看" showIndex="02" viewId="00;" reqPower="02" icon="fa fa-edit" positionType="" outParam="'confirmfun':'clickView'" actionName="editData"/>
+                                <Cmd name="删除" showIndex="03" viewId="00;" reqPower="03" icon="fa fa-times" positionType="" outParam="'confirmfun':'clickDelete'" actionName="delete"/>
+                                <Cmd name="保存" showIndex="04" viewId="01;" reqPower="04" icon="fa fa-save" positionType="" actionName="editSave"/>
+                                <Cmd name="返回列表" showIndex="05" viewId="01;" canVisual="false" positionType="" actionName="toquery"/>
+                            </Cmds>
+                            <Views defaultView="00">
+                                <View id="00" name="列表视图" viewTemplateId="user.userList" actionName=""/>
+                                <View id="01" name="编辑视图" viewTemplateId="user.userEdit" actionName="edit.*"/>
+                                <View id="ajaxView" name="ajax数据输出视图" viewTemplateId="common.dynCreateDataCtrlNode" actionName="ajax.*"/>
+                            </Views>
+                        </Action>
+                    </AccessResource>
+
+                    <AccessResource id="role" name="角色管理" address="./neodo/sysup/role" arRoleGroupId="sys" noLimitAccess="" adminARItem="是" grantGroup="01@新建;02@查看;03@删除;04@保存">
+                        <Action>
+                            <Cmds>
+                                <Cmd id="query" name="查询" showIndex="00" reqPower="" viewId="00;" outParam="" canVisual="false" positionType="" actionName="query" param=""/>
+                                <Cmd name="新建" showIndex="01" viewId="00;01;" reqPower="01" icon="fa fa-plus" positionType="" actionName="editCreate"/>
+                                <Cmd name="查看" showIndex="02" viewId="00;" reqPower="02" icon="fa fa-edit" positionType="" outParam="'confirmfun':'clickView'" actionName="editData"/>
+                                <Cmd name="删除" showIndex="03" viewId="00;" reqPower="03" icon="fa fa-times" positionType="" outParam="'confirmfun':'clickDelete'" actionName="delete"/>
+                                <Cmd name="保存" showIndex="04" viewId="01;" reqPower="04" icon="fa fa-save" positionType="" outParam="'confirmfun':'settingrsvalue'" actionName="editSave"/>
+
+                                <Cmd name="返回列表" showIndex="05" viewId="01;" icon="" canVisual="false" positionType="" actionName="toquery"/>
+
+
+
+                            </Cmds>
+
+                            <Views defaultView="00">
+                                <View id="00" name="列表视图" orReqPower="" viewTemplateId="role.roleList" actionName=""/>
+                                <View id="01" name="编辑视图"  viewTemplateId="role.roleEdit" actionName="edit.*"/>
+                            </Views>
+                        </Action>
+                    </AccessResource>
+
+
+
+                </AccessResource>
+
+
+
+            </AccessResource>
+
+            <AccessResource id="common" type="menu" name="通用功能" icons="fa fa-fw fa-right fa-terminal">
+
+                <AccessResource id="accessLog" name="系统访问日志" showName="系统访问日志"  filterPath="/neodo" autoCreateAddress="true"
+                                hiddenParam="Action@:accessLog.datalist;
+                            Action@data.json:common.preAnaysleInnerJsonView::accessLog.ctrldata,addons.common.web.accessLog.CtrlData;"  arRoleGroupId="common" grantGroup="">
+
+                    <ParamSet>
+                        <Param id="conditionBeans" name="t">
+                            <ParamValue id="t" value="com.nsneo.pub.bpm.demo.BPMQueryConditionDemoBeans">
+                                <RuleContent>
+                                    <![CDATA[
+                                        if(true){
+                                            i--
+                                        }
+                                        ]]>
+                                </RuleContent>
+                            </ParamValue>
+                        </Param>
+                    </ParamSet>
+
+                </AccessResource>
+
+                <AccessResource id="winClientReg" name="客户端注册管理" showName="客户端注册管理" arRoleGroupId="common"
+                                grantGroup=""
+                                autoCreateAddress="true" filterPath="./neodo" address=""
+                                hiddenParam="
+                                Action@:sample.winClientReg.datalist;
+                                Action@data.json:common.preAnaysleInnerJsonView::sample.winClientReg.ctrldata,addons.common.web.sample.winClientReg.CtrlData;"/>
+
+
+                <AccessResource id="sampleResDataMan" name="资源文件管理" showName="资源文件管理" arRoleGroupId="common"
+                                grantGroup=""
+                                autoCreateAddress="true" filterPath="./neodo" address=""
+                                hiddenParam="
+                                Action@:sample.resDataMan.datalist;
+                                Action@data.json:common.preAnaysleInnerJsonView::sample.resDataMan.ctrldata,addons.common.web.sample.resDataMan.CtrlData;"/>
+
+
+            </AccessResource>
+
+            <AccessResource id="dynLoadArItem" name="自定义查询" icons="fa fa-fw fa-right fa-search" filterPath="/neodo" arRoleGroupId="common" dynLoadItemClassName="addons.common.web.dyLoadDbTable.AccessResourceDynLoadToolsImp">
+
+                <AccessResource id="dynLoadArItemMan" icons="" name="自定义查询管理" arRoleGroupId="common" showName="自定义查询管理"
+                                grantGroup=""
+                                autoCreateAddress="true"
+                                hiddenParam="Action@:dyLoadDbTable.entitydatalist;
+                                Action@data.json:common.preAnaysleInnerJsonView::dyLoadDbTable.entityctrldata,addons.common.web.dyLoadDbTable.EntityCtrlData;"/>
+
+            </AccessResource>
+
+
+            <AccessResource id="demo" type="menu" name="模块示例" icons="fa fa-fw fa-right fa-indent">
+
+                <AccessResource id="nsneo-templatectrl-demo.html" defaultViewId=""
+                                address="" filterPath="./neonu" autoCreateAddress="true"
+                                name="界面模板输出示例(JSON输出不可见)" noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                hiddenParam="
+                                Action@:demo.simple.preAnaysleInjectionTmplCtrl;">
+                    <ParamSet>
+                        <Param id="action-tmpl">
+                            <ParamValue id="" value="addons.demo.web.ctrldemo.TemplateCtrlData@DynSettingTemplateFile=./demo/simple/nsneo-templatectrl-demo.html"/>
+                        </Param>
+                    </ParamSet>
+                </AccessResource>
+
+                <AccessResource id="demoyl" name="示例程序" arRoleGroupId="demo" address="./demo/demoyl" filterPath="./neodo" checkAccessRequestUrl="false" invalidFilterPath="" hiddenParam="Action@:demo.demoyl.defaultView;Action@data.json:demo.common.dataJsonView:01" grantGroup="01@新建;02@查看;03@删除;04@保存"/>
+
+                <AccessResource id="bjmb.dn" type="menu" name="病人档案"  arRoleGroupId="demo" noLimitAccess=""  icons="" address="./neodo/demo/bjmbdn" grantGroup="01@新建;02@查看;03@删除;04@保存">
+                    <Action>
+                        <Cmds>
+                            <Cmd id="query" name="查询" showIndex="00" reqPower="" viewId="00;" outParam="" canVisual="false" positionType="" actionName="query" param=""/>
+                            <Cmd name="新建" showIndex="01" viewId="00;01;02;" reqPower="01" icon="fa fa-plus" positionType="" actionName="editCreate"/>
+                            <Cmd name="查看" showIndex="02" viewId="00;" reqPower="02" icon="fa fa-edit" positionType="" outParam="'confirmfun':'clickView'" actionName="editData"/>
+                            <Cmd name="删除" showIndex="03" viewId="00;" reqPower="03" icon="fa fa-times" positionType="" outParam="'confirmfun':'clickDelete'" actionName="delete"/>
+                            <Cmd name="保存" showIndex="04" viewId="01;02" reqPower="04" icon="fa fa-save" positionType="" actionName="editSave" outParam="'confirmfun':'settingrsvalue'"/>
+                            <Cmd name="返回列表" showIndex="05" viewId="01;02" icon="" canVisual="false" positionType="" actionName="toquery"/>
+
+                            <Cmd name="增加病史" showIndex="05" canVisual="false" actionName="ajaxAddBingShi"/>
+                        </Cmds>
+                        <Views defaultView="00">
+                            <View id="00" name="列表视图" viewTemplateId="demo.pp.PatientProfile" actionName=""/>
+                            <View id="01" name="编辑视图备份" viewTemplateId="demo.pp.PatientProfileEdit" actionName="aedit.*"/>
+                            <View id="02" name="编辑视图" viewTemplateId="demo.pp.PatientProfileInfo" actionName="edit.*"/>
+                            <View id="ajaxview" name="异步提交返回数据视图,增加病史" viewTemplateId="DynGeneratePage" actionName="ajax.*"/>
+                        </Views>
+                    </Action>
+                </AccessResource>
+
+                <AccessResource id="bpmdemo" name="BPM流程示例" address="./bpm/demo/instock" arRoleGroupId="demo" appendUrl=""
+                                type="menu" grantGroup="01@新建;02@查看;03@删除;04@保存"
+                                hiddenParam="BPMId@InStockDemo"/>
+
+
+                <AccessResource id="sfDemo.html" name="脚手架生成模块" showName="脚手架生成模块" filterPath="/neodo"
+                                grantGroup=""
+                                autoCreateAddress="true" arRoleGroupId="demo"
+                                hiddenParam="
+                                Action@:sfDemo.datalist;
+                                Action@data.json:common.preAnaysleInnerJsonView::sfDemo.ctrldata,addons.demo.web.sfDemo.CtrlData;"/>
+
+
+                <AccessResource id="orgMan" name="机构管理" showName="机构管理" arRoleGroupId="demo"
+                                grantGroup=""
+                                autoCreateAddress="false" address="./neodo/org/orgman"
+                                hiddenParam="
+                                Action@:org.datalist;
+                                Action@data.json:common.preAnaysleInnerJsonView::org.ctrldata,addons.common.web.orgMan.CtrlData;"/>
+
+                <AccessResource id="second" name="第二级菜单" filterPath="/neodo">
+                    <AccessResource id="third" name="第三级菜单">
+                        <AccessResource id="fourth" name="第四级菜单">
+                            <AccessResource id="fifth" icons="fa fa-fw fa-right fa-windows" name="第五级菜单" showName="第五级菜单" arRoleGroupId="demo"
+                                            grantGroup=""
+                                            autoCreateAddress="true"
+                                            hiddenParam="Action@:demo.demoBlank;"/>
+                        </AccessResource>
+                    </AccessResource>
+
+                </AccessResource>
+
+
+
+                <!--默认视图编码:demo.funtest_view -->
+                <!--
+                <AccessResource id="demo.funtest" type="menu" name="功能测试" icons="fa fa-fw fa-right fa-th" address="./neodo/demo/funtest" noLimitAccess="是"/>
+                -->
+            </AccessResource>
+
+
+
+
+            <!--全局访问权限设置,在控件 WebViewModuleAccessPowerListCtrl 中使用-->
+            <AccessResource id="GlobalPower" type="GlobalPower" name="全局权限设置" icons="">
+                <AccessResource id="test" uuid="TestGlobalPower" name="测试全局访问权限" autoCreateAddress="true" type="GlobalPower" hiddenParam=""  arRoleGroupId="demo" grantGroup="001@权限一;002@权限二;"/>
+                <AccessResource id="test2" uuid="Test2GlobalPower" name="测试全局访问权限2" autoCreateAddress="true" type="GlobalPower" hiddenParam=""  arRoleGroupId="demo" grantGroup="003@权限一;004@权限二;"/>
+            </AccessResource>
+
+
+
+            <AccessResource id="client" type="menu" name="客户端" icons="fa fa-fw fa-right fa-indent" showARItem="false">
+
+                <AccessResource id="win" type="menu" name="Win客户端" icons="fa fa-fw fa-right fa-indent" showARItem="false">
+
+                    <AccessResource id="hello" name="Win客户端欢迎页" showName="Win客户端欢迎页"
+                                    arRoleGroupId="client" grantGroup=""
+                                    noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                    matchAddressType="last" filterPath="" autoCreateAddress="" address="./neonu/client/win"
+                                    hiddenParam="
+                                Action@:sample.client.win.hello;"/>
+
+                    <AccessResource id="login.html" name="客户端登录视图" showName="客户端登录视图"
+                                    arRoleGroupId="client" grantGroup=""
+                                    noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                    filterPath="./neonu" autoCreateAddress="true" address=""
+                                    hiddenParam="
+                                Action@:sample.client.win.login;
+                                Action@data.json:common.preAnaysleInnerJsonView::sample.client.win.logindata,addons.common.web.sample.winclient.commons.CtrlLoginData"/>
+
+                    <AccessResource id="home.html" name="首页视图" showName="首页视图"
+                                    arRoleGroupId="client" grantGroup=""
+                                    noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                    filterPath="./neonu" autoCreateAddress="true" address=""
+                                    hiddenParam="
+                                Action@:sample.client.win.home;"/>
+
+                    <AccessResource id="lock.html" name="锁定视图" showName="锁定视图"
+                                    arRoleGroupId="client" grantGroup=""
+                                    noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                    filterPath="./neonu" autoCreateAddress="true" address=""
+                                    hiddenParam="
+                                Action@:sample.client.win.lock;"/>
+
+
+                    <AccessResource id="exit.html" name="退出视图" showName="退出视图"
+                                    arRoleGroupId="client" grantGroup=""
+                                    noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                    filterPath="./neonu" autoCreateAddress="true" address=""
+                                    hiddenParam="
+                                Action@:sample.client.win.exit;"/>
+
+
+                    <AccessResource id="update.html" name="客户端更新" showName="客户端更新"
+                                    arRoleGroupId="client" grantGroup=""
+                                    noLimitAccess="是" canAuthorized="否" showARItem="false"
+                                    filterPath="./neonu" autoCreateAddress="true" address=""
+                                    hiddenParam="
+                                Action@:sample.client.win.update;"/>
+
+                </AccessResource>
+
+            </AccessResource>
+
+
+        </AccessResource>
+
+
+    </AccessResourceGroup>
+
+</AccessResourceSet>

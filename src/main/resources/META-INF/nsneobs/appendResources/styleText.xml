@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StyleText>
+
+    <Text key="root.corpname" txt="青岛海大新星软件咨询有限公司"/>
+    <Text key="root.corptel" txt="0532-85902968"/>
+    <Text key="root.sysname" txt="海大应用托管平台"/>
+
+    <Text key="root.loginpagetitle" txt="欢迎使用海大应用托管平台"/>
+
+
+    <Text key="root.OrderOpened" txt="./resources/pages/nsneobs/images/prun.png"/>
+    <Text key="root.OrderClosed" txt="./resources/pages/nsneobs/images/prun.png"/>
+
+    <Text key="root.SysOpened" txt="./resources/pages/nsneobs/images/pkey.png"/>
+    <Text key="root.SysClosed" txt="./resources/pages/nsneobs/images/pkey.png"/>
+
+</StyleText>

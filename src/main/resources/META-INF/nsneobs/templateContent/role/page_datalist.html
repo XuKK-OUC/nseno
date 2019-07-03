@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>角色管理</title>
+
+</head>
+
+{roleMan.RoleListDo}
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+
+            <!--ToolbarCrumb-->
+            <ol id="ToolbarCrumb" class="breadcrumb" style="">
+
+                <div class="row">
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="" class=""><i class="fa fa-align-justify"></i>角色列表</h4>
+                    </div>
+
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+
+                        <div id="paggingArea" class="btn-group ToolbarCrumb_OpArea_Pagging" role="group" style="">
+
+                        </div>
+
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+
+                        </div>
+
+
+                        <div class="input-group custom-search-form ToolbarCrumb_OpArea_SampleQuery" style="">
+                            <input id="SampleQueryInput" class="form-control" type="text" placeholder="请输入角色名">
+                            <span class="input-group-btn">
+                                <button id="SampleQueryInputBtn" class="btn btn-primary" type="button" targetActionName="query">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </ol>
+            <!--/#ToolbarCrumb-->
+
+            <!--RSPanel-->
+            <div id="RSPanel" class="row">
+
+                <!--RSPanel_Left-->
+                <div id="RSPanel_Left" class="col-lg-2 col-sm-2 col-md-2">
+                    <form class="" id="mainform" name="mainform" targeturl="{CtrlDynField@CtrlDynParam=CurrentUrl}/" method="post" action="#">
+
+                        <!--查询条件-->
+                        {MultiQueryConditionCtrl@DynSettingTemplateFile=./role/ctrl_querycondition.html}
+
+                        <!--selected rowid-->
+                        <input type="hidden" id="selectedRecordRowId" name="selectedRecordRowId" value=""/>
+
+
+                        <div style="text-align: center;">
+                            <button id="QueryBtn" type="button" targetActionName="query" class="btn btn-default">查询</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!--/#RSPanel_Left-->
+
+                <!--RSPanel_Right-->
+                <div id="RSPanel_Right" class="col-lg-12">
+
+                    <div class="row">
+
+                        <div id="RSPanel_Right_DataTable" class="col-xs-12 RSPanel_Right_DataTable">
+                            <div class="table-responsive">
+                                <table class="table dataTable table-striped table-bordered table-hover" style="">
+                                    <thead>
+                                    <tr>
+                                        <th class="th-rowselect">选择</th>
+                                        <th orderfield="name" ordertype="" class="RSPanel_Sort" style="width: 200px;">名称</th>
+                                        <th orderfield="caption" ordertype="">描述</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody id="tableRowSet">
+                                        {MultiDataQueryRSCtrl@DynSettingTemplateFile=./role/ctrl_datalist.html}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--/# RSPanel_Right_DataTable-->
+
+                    </div>
+                    <!--/.row-->
+
+                </div>
+                <!--/#RSPanel_Right-->
+
+            </div>
+            <!--/#RSPanel-->
+
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+
+    //引入所有命令数据
+    var ModuleCmdLt = [{WebViewCmdListCtrl@RowAppendString=,}];
+
+    //分页对象
+    var ResultSetPagging = \{{PaggingCtrl}\};
+
+</script>
+
+<wcignore><script>
+    //查看数据
+    function clickView(elementObj,globalOptions,btnOutParamObj,btnGroupArea){
+        if($.trim($("#selectedRecordRowId").val())==""){
+            //alert("请选择一条记录");
+            try {
+                $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"请选择一条记录"});
+            } catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    function clickDelete(elementObj,globalOptions,btnOutParamObj,btnGroupArea){
+        if($.trim($("#selectedRecordRowId").val())==""){
+            //alert("请选择一条记录");
+            try {
+                $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"请选择一条记录"});
+            } catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    $(function(){
+
+        //分页区对象
+        try {
+            $("#paggingArea").VisualPaggingHeadBtnGroup({
+                dataObj: ResultSetPagging,
+                formObjId: "mainform",
+                baseUrl: $("#mainform").attr("targeturl") + "gotoPage?currentPageNo"
+            });
+            //alert("url="+$("#mainform").attr("targeturl") + "gotoPage?currentPageNo");
+        } catch (e) {
+            alert(e);
+        }
+
+        /*
+        //明细选择控制
+        try{
+            $(".detailrecord").SingleCheckBoxTools({IdFieldTag:'selectedRecordRowId'});
+        }catch(e){
+            alert(e);
+        }
+
+        //整行选择
+        try{
+            $("#tableRowSet").children("tr").click(function(){
+                $(this).children("td:first").children(".detailrecord").trigger("click");
+            });
+        }catch(e){
+            alert(e);
+        }*/
+
+        try{
+            $("#tableRowSet").children("tr").tableRowSetSelectAndClick();
+        }catch(e){
+            alert(e);
+        }
+
+        //命令区对象
+        try {
+            $("#BtnListOpArea").VisualFormIconBtnGroup({
+                CmdDataObjs: ModuleCmdLt,
+                formObjId: "mainform"
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+        //设置提交按钮
+        try{
+            $("#QueryBtn").FormBtnsOp({formObjId: "mainform"});
+        }catch (e){
+            alert(e);
+        }
+
+        //简单查询按钮
+        try{
+            $("#SampleQueryInputBtn").FormBtnsOp({formObjId: "mainform",checkform:function(formObj,elementObj){
+                $("#simpleQueryConditionValue").val($("#SampleQueryInput").val());
+                return true;
+            }});
+        }catch (e){
+            alert(e);
+        }
+
+
+
+        try {
+            $(".RSPanel_Sort").OrderByTableHead({
+                currentOrderField: {"FieldName":$("#CurrentOrderByFieldName").val(),"OrderType":$("#CurrentOrderByFieldType").val()},
+                formObjId: "mainform"
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+    });
+
+</script></wcignore>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

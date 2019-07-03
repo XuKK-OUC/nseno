@@ -1,0 +1,36 @@
+/*this is lk theme files*/
+/*#f8f8f8;*/
+body {
+    background-color: #202020;
+}
+.navbar-static-top-back-theme{
+    background: #00B4B1 ;
+}
+#PfLeftSideBarMenu{
+    background-color: #202020;
+    margin-top: 50px !important;
+}
+
+#PfLeftSideBarMenu a{
+    color: #ffffff;
+}
+
+#MainNavbar{
+    border: 0px none !important;
+}
+
+.sidebar ul li a.active{
+    background: #00B4B1 url("./images/menu-active.png") no-repeat scroll right center !important;
+    text-decoration: none;
+}
+
+.sidebar ul li{
+    border-bottom: 1px solid #292929 !important;
+}
+
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: none;
+    background-color: #00B4B1 !important;
+}

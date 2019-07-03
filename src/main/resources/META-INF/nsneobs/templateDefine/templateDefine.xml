@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Templates namespace="" noCacheContent="true">
+
+    <ControlDef id="PageMsgCtrl" name="页面消息输出控件" objectName="com.nsneo.web.webTemplate.webControl.commonCtrl.CommonPageMsgOutCtrl" templateFileName="./common/PageMsgOutCtrl.html"/>
+    <ControlDef id="CtrlDynField" name="通用字段输出控件" objectName="com.nsneo.web.webTemplate.webControl.CommonWebOutViewCtrl" templateFileName="./common/CtrlDynParamValue.html"/>
+    <ControlDef id="LoginDoCtrl" name="登录操作信息" objectName="com.common.web.common.LoginDoCtrl" noContentFile="true"/>
+    <ControlDef id="DesktopDoCtrl" name="桌面登录校验控件" objectName="com.common.web.common.DesktopDoCtrl" noContentFile="true"/>
+
+    <!--通用控件部分-->
+    <ControlDef id="JsCssResourcesHead" name="JsCss文件头" objectName="com.nsneo.web.webTemplate.webControl.CommonWebOutViewCtrl" templateFileName="./common/JsCssResourcesHead.html"/>
+    <ControlDef id="JsCssResourcesTail" name="JsCss文件尾" objectName="com.nsneo.web.webTemplate.webControl.CommonWebOutViewCtrl" templateFileName="./common/JsCssResourcesTail.html"/>
+
+    <ControlDef id="NavBarHead" name="导航头" objectName="com.nsneo.web.webTemplate.webControl.CommonWebOutViewCtrl" templateFileName="./common/NavBarHead.html"/>
+    <ControlDef id="WebViewCmdListCtrl" name="模块命令列表" objectName="com.common.web.baseCtrl.cusImp.ViewCmdListCtrl" templateFileName="./common/ModuleCmdList.html"/>
+    <ControlDef id="WebViewModuleAccessPowerListCtrl" name="模块访问权限列表" objectName="com.common.web.baseCtrl.cusImp.ViewModuleAccessPowerListCtrl" templateFileName="./common/ModuleAccessPowerLt.html"/>
+
+    <ControlDef id="PaggingCtrl" name="翻页控件,显示当前查询结果的分页数据" objectName="com.common.web.baseCtrl.cusImp.MultiDataQueryRSPaggingCtrl" templateFileName="./common/Pagination.html"/>
+
+    <!--脚本调用控件-->
+    <ControlDef id="GroovyScriptInvokeCtrl" name="GroovyScript调用控件" objectName="com.common.web.baseCtrl.script.BaseGroovyScriptDoCtrl" noContentFile="true"/>
+    <!--脚本调用控件-->
+    <ControlDef id="GroovyScriptWrapInvokeCtrl" name="GroovyScript包装调用控件" objectName="com.common.web.baseCtrl.script.BaseGroovyScriptWrapDoCtrl" notAnaylseIdLoadContent="true"/>
+
+
+    <!--Ajax输出界面-->
+    <PageDef id="common.dynCreateDataCtrlNode" name="动态创建数据输出节点" templateFileName="./common/PageDynCreateDataCtrlNode.html"/>
+    <!--动态生成页面模板内容页面对象-->
+    <PageDef id="DynGeneratePage" name="动态生成模板内容页面" objectName="com.nsneo.pub.outTemplate.imp.PageObjDynGenerateImp" noContentFile="true" />
+    <!--将数据转换为JSON的控件对象-->
+    <ControlDef id="MultiDataJsonOutCtrl" name="将数据转换为JSON的控件" objectName="com.common.web.baseCtrl.cusImp.MultiDataJsonOutCtrl" noContentFile="true"/>
+
+    <!--普通模块公共控件-->
+    <ControlDef id="MultiDataEditCtrl" name="数据编辑输出控件" objectName="com.common.web.baseCtrl.cusImp.MultiDataEditCtrl" notAnaylseIdLoadContent="true"/>
+    <ControlDef id="MultiDataQueryRSCtrl" name="数据查询结果集输出控件" objectName="com.common.web.baseCtrl.cusImp.MultiDataQueryRSCtrl" notAnaylseIdLoadContent="true"/>
+    <ControlDef id="MultiQueryConditionCtrl" name="数据查询条件输出控件" objectName="com.common.web.baseCtrl.cusImp.MultiQueryConditionCtrl" notAnaylseIdLoadContent="true"/>
+
+
+    <!--工作流公共控件-->
+    <ControlDef id="BPMCommandListCtrl" name="命令列表控件" objectName="com.nsneo.pub.bpm.webTemplate.BPMCommonViewCmdListCtrl" notAnaylseIdLoadContent="true"/>
+
+    <ControlDef id="BPMQueryConditionCtrl" name="查询条件输出控件,该控件为动态Bean 控件" objectName="com.nsneo.pub.bpm.webTemplate.BPMDoCommonBeansQueryConditionCtrl" notAnaylseIdLoadContent="true"/>
+    <ControlDef id="BPMDoQuery" name="单据数据查询操作" objectName="com.nsneo.pub.bpm.webTemplate.BPMDoCommonBeansQueryPaggingCtrl" noContentFile="true"/>
+    <ControlDef id="BPMBeansQueryDataLtCtrl" name="单数据主数据查询结果集控件" objectName="com.nsneo.pub.bpm.webTemplate.BPMCommonBeansDataListPaggingCtrl" notAnaylseIdLoadContent="true"/>
+    <ControlDef id="BPMBeansDataEditCtrl" name="单数据编辑控件" objectName="com.nsneo.pub.bpm.webTemplate.BPMCommonBeansDataEditCtrl" notAnaylseIdLoadContent="true"/>
+    <ControlDef id="BPMBeansDataDetailEditCtrl" name="明细数据编辑控件" objectName="com.nsneo.pub.bpm.webTemplate.BPMCommonBeansDataListCtrl" notAnaylseIdLoadContent="true"/>
+
+    <ControlDef id="BPMEntityLoadCtrl" name="实体数据加载控件" objectName="com.nsneo.pub.bpm.webTemplate.BPMCommonEntityDataLoadCtrl" notAnaylseIdLoadContent="true"/>
+
+
+
+
+    <PageDef id="order.inStock_view" name="测试页面" templateFileName="./demo/sayhello_view.html"/>
+    <PageDef id="sys.up.user_view" name="测试页面" templateFileName="./demo/sayhello_view.html"/>
+    <PageDef id="sys.org.md_view" name="测试页面" templateFileName="./demo/sayhello_view.html"/>
+
+    <!--空白页面-->
+    <PageDef id="demo.blank" name="空白页面" templateFileName="./demo/demoBlank.html"/>
+
+    <!--流程定义示例程序-->
+    <PageDef id="demo.inStockIndex_view" name="入库流程示例界面" templateFileName="./demo/sayhelloIndex_view.html"/>
+    <PageDef id="demo.inStockEdit_view" name="入库流程示例界面" templateFileName="./demo/sayhelloEdit_view.html"/>
+
+    <!--用户管理-->
+    <PageDef id="user.userList" name="用户管理" templateFileName="./user/page_datalist.html"/>
+    <PageDef id="user.userEdit" name="用户管理" templateFileName="./user/page_dataedit.html"/>
+
+    <!--角色管理-->
+    <PageDef id="role.roleList" name="角色管理" templateFileName="./role/page_datalist.html"/>
+    <PageDef id="role.roleEdit" name="角色管理" templateFileName="./role/page_dataedit.html"/>
+    <ControlDef id="RoleRSWebOutViewCtrl" name="可访问资源输出JSON" objectName="com.common.web.roleMan.RoleRSWebOutViewCtrl" noContentFile="true"/>
+
+</Templates>

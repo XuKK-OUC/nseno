@@ -1,0 +1,47 @@
+<!-- Navigation -->
+<nav id="MainNavbar" class="navbar navbar-default navbar-static-top navbar-static-top-back-theme" role="navigation" style="margin-bottom: 0">
+
+    <div id="title-navbar" class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sidebar-menudiv">
+            <span class="sr-only">转到首页</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a id="title-navbar-content" class="navbar-brand title-nav-brand-bg-cus-theme nav-title-text-color-theme" href="#" targeturl="{DefaultDesktopKey}"></a>
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul id="settiing-navbar" class="nav navbar-top-links navbar-right">
+
+        <li id="UserDropdown" class="dropdown">
+            <a class="dropdown-toggle nav-title-text-color-theme" data-toggle="dropdown" href="#">
+                <i class="fa fa-gears fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="#" title="用户名"><i class="fa fa-user fa-fw fa-right"></i>{CurrentUserName}</a></li>
+                <li><a href="#" title="用户角色"><i class="fa fa-leaf fa-fw fa-right"></i>{CurrentUserRoleName}</a></li>
+                <li class="divider"></li>
+                <li><a href="#" title="系统主题" class="themeselectlink" themevalue="{DefaultAppConfigName}lk"><i class="fa fa-photo fa-fw fa-right"></i>深色</a></li>
+                <li><a href="#" title="系统主题" class="themeselectlink" themevalue="{DefaultAppConfigName}"><i class="fa fa-photo fa-fw fa-right"></i>浅色</a></li>
+                <li class="divider"></li>
+                <li><a href="{ContextUrl}/endpage.jsp"><i class="fa fa-sign-out fa-fw fa-right"></i>退出</a></li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div id="PfLeftSideBarMenu" class="navbar-default sidebar" role="navigation">
+        <div id="sidebar-menudiv" class="sidebar-nav navbar-collapse" >
+
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+
+    <script>
+
+    </script>
+</nav>

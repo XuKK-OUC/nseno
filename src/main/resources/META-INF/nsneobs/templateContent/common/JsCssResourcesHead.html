@@ -1,0 +1,63 @@
+
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-store">
+<meta http-equiv="Pragma" content="no-cache">
+
+<!--引入菜单数据-->
+<script>
+    ^common.DesktopMenu@AccessResourceType=menu;ImagePosition=false;^
+</script>
+
+<script>
+    var themeTheme = "{ContextTheme}";
+</script>
+
+<link rel="shortcut icon" href="{ContextUrl}/favicon.ico"/>
+<link rel="bookmark" href="{ContextUrl}/favicon.ico"/>
+
+<link rel="stylesheet" href="{ContextUrl}/resources/pages/{DefaultAppConfigName}/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet" href="{ContextUrl}/resources/pages/{DefaultAppConfigName}/bowercomponents/metisMenu.css">
+<link rel="stylesheet" href="{ContextUrl}/resources/pages/{DefaultAppConfigName}/bowercomponents/font-awesome.css" />
+<link rel="stylesheet" href="{ContextUrl}/resources/pages/{DefaultAppConfigName}/{DefaultAppConfigName}.css" />
+
+<link rel="stylesheet" href="{ContextUrl}/resources/pages/{DefaultAppConfigName}/{ContextTheme}theme.css" />
+
+<link rel="stylesheet" href="{ContextUrl}/resources/pages/{DefaultAppConfigName}/jquery_extend.css" />
+
+
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/jquery.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/bootstrap/js/bootstrap.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/bowercomponents/metisMenu.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/layer/layer.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/{DefaultAppConfigName}.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/exjs/common.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/jquery_extend.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/json2/json2.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/noty/packaged/jquery.noty.packaged.js"></script>
+<script src="{ContextUrl}/resources/pages/{DefaultAppConfigName}/jquery.form.js"></script>
+
+
+
+<!--引入环境变量-->
+<script>
+
+    var Pf_WinName = "{SysWindowName}";//窗口名称
+    var Pf_SysName="{#root.sysname}";//应用系统名称
+
+    window.name=Pf_WinName;//窗口名称
+
+    var PageRootContextUrl = '{ContextUrl}';//页面根路径
+    var UserCurrentMenuKey = '{UserCurrentMenuKey}';//用户当前菜单KEY
+    var ModuleAccessUrl = "{ContextUrl}/accessModule.html";//切换菜单需要访问的系统对象
+    var ModuleAccessUrlById = "{ContextUrl}/accessModulebyId.html";//切换菜单需要访问的系统对象
+    var ModuleAccessUrlByUuid = "{ContextUrl}/accessModulebyUuid.html";//切换菜单需要访问的系统对象
+    var CurrentPageUrl = '{CurrentUrl}';//页面当前的URL
+    var ARItemAddress = '{ARItemAddress}';//当前菜单地址
+    var ARItemServletFilterPath = '{ARItemServletFilterPath}';//当前页面的servlet 拦截路径
+
+    window.history.forward(1);
+    window.onbeforeunload=function ()\{\}
+
+</script>
+

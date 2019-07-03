@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Grant grantType="" grantChildType="">
+    <Group id="01" name="测试权限1">
+        <Item id="0101" name="0101名称" caption="0101描述"/>
+        <Item id="0102" name="0102名称" caption="0102描述"/>
+
+    </Group>
+
+    <Group id="02" name="测试权限2">
+        <Item id="0201" name="0201名称" caption="0201描述"/>
+        <Item id="0202" name="0202名称" caption="0202描述"/>
+
+    </Group>
+
+</Grant>

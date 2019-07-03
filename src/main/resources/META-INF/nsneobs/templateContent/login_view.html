@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+{LoginDoCtrl}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+
+    <link rel="shortcut icon" href="{CtrlDynField@CtrlDynParam=ContextUrl}/favicon.ico"/>
+    <link rel="bookmark" href="{CtrlDynField@CtrlDynParam=ContextUrl}/favicon.ico"/>
+
+    <link rel="stylesheet" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/font-awesome.css" />
+    <link rel="stylesheet" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}.css" />
+
+    <script>
+        window.name="{CtrlDynField@CtrlDynParam=SysWindowName}";
+        var checkcodeimgurl = "{CtrlDynField@CtrlDynParam=ContextUrl}/WebCheckCodeImage.html";
+    </script>
+    <wcignore>
+        <style>
+        .popover{
+            min-width: 300px;
+            min-height: 90px;
+        }
+        .checkcodeimg{
+            width: 100%;height: 100%
+        }
+        </style>
+    </wcignore>
+</head>
+
+<body class="login-view-body-bg">
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading index-brand-bg-cus">
+                    <h3 class="panel-title">{CtrlDynField@CtrlDynStyleTxt=root.sysname}</h3>
+                </div>
+                <div class="panel-body">
+                    <form id="mainform" method="post" role="form" action="{CtrlDynField@CtrlDynParam=CurrentUrl}/login">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="用户名" name="userloginname" type="text" autofocus id="LoginBtn" title="登陆消息" tabindex="0" role="button" data-toggle="popover" data-trigger="" data-content="">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="密码" name="userloginpwd" type="password" value="">
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-8">
+                                    <input class="form-control" placeholder="验证码" name="userlogincheckcode" type="text" value="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <img id="nsneo-checkcodeimg" src="{CtrlDynField@CtrlDynParam=ContextUrl}/WebCheckCodeImage.html" class="checkcodeimg" title="看不清请点击刷新">
+                                </div>
+                            </div>
+
+                            <div class="checkbox">
+                                <!--
+                                <label>
+                                    <input name="remember" type="checkbox" value="记住账号">记住账号
+                                </label>
+                                <a class="login_righttxt" href="#">忘记我</a>
+                                -->
+                            </div>
+
+                            <button class="btn btn-lg btn-success btn-block" >登录</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="pageErrorMsg">
+
+    </div>
+
+</div>
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/jquery.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/jquery_extend.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bootstrap/js/bootstrap.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/nsneologin.js"></script>
+
+<wcignore><script>
+
+    /**
+     * 异步刷新验证码
+     */
+    function reloadRandCodeImage() {
+        var date = new Date();
+        var img = document.getElementById("nsneo-checkcodeimg");
+        img.src=checkcodeimgurl+'?accesstime='+date.getTime();
+    }
+
+    $(function(){
+        /*处理页面消息*/
+        try{
+            var msgSetObj = $("#PageMsg").children();
+            if(msgSetObj.length>0){
+                var msgLi = msgSetObj[0];
+                $("#LoginBtn").attr("data-content",$(msgLi).html());
+                $('#LoginBtn').popover('show');
+            }
+        }catch (e){
+            alert(e);
+        }
+
+        $('#nsneo-checkcodeimg').click(function(){
+            reloadRandCodeImage();
+        });
+
+        try{
+            $("#mainform").FormEnterInvoke();
+        }catch(e){
+            alert(e);
+        }
+    });
+</script></wcignore>
+</body>
+
+</html>

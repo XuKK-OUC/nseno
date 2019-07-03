@@ -1,0 +1,127 @@
+.finder-columnview-container {
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.finder-columnview-container table tr td:first-child {
+	border-left: solid 0px #dddddd !important;
+}
+
+.finder-columnview-resizablearea {
+	width: 250px;
+	min-width: 250px;
+	height: 450px;
+	min-height: 450px;
+	max-height: 450px;
+	border-left-width: 0px;
+	border-bottom-width: 0px;
+	border-top-width: 0px;
+	border-right: 1px solid #DDDDDD;
+}
+
+.finder-columnview-listarea {
+	margin: 0px;
+	padding: 0px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.finder-columnview-listarea-height{
+	min-height: 450px;
+	max-height: 450px;
+	height: 450px;
+}
+
+
+.finder-columnview-list-group-item-selficon {
+	color: #C23321;
+	margin-top: 2px;
+	padding-right: 5px;
+	font-size: 12px;
+}
+
+.active .finder-columnview-list-group-item-selficon {
+	color: #FFFFFF;
+}
+
+.finder-columnview-list-group-item-nexticon {
+	color: #000000;
+	float: right;
+	margin-top: 2px;
+	font-size: 12px;
+}
+
+.active .finder-columnview-list-group-item-nexticon {
+	color: #FFFFFF;
+}
+
+.finder-columnview-list-group-item-value{
+	color: #000000;
+	float: right;
+	margin-right: 5px;
+}
+
+.active .finder-columnview-list-group-item-value{
+	color: #FFFFFF;
+}
+
+.finder-columnview-list-group {}
+
+.finder-columnview-list-group-item {
+	border-left-width: 0px;
+	border-right-width: 0px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.finder-columnview-list-group-item:first-child {
+	border-top-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+	border-top: 0px;
+}
+
+.finder-columnview-list-group-item:last-child {
+	margin-bottom: 0;
+	border-bottom-right-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+}
+
+.finder-columnview-list-group .tooltip {
+	z-index: 999 !important;
+}
+
+.finder-columnview-list-group .tooltip-inner {
+	white-space: nowrap;
+}
+
+.finder-columnview-title-selected:after {
+	content: "\f00c";
+	display: inline-block;
+	font-family: FontAwesome;
+	font-feature-settings: normal;
+	font-kerning: auto;
+	font-language-override: normal;
+	font-size: inherit;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-synthesis: weight style;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	text-rendering: auto;
+}
+
+.finder-columnview-ui-widget-header {
+	padding-left: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top: 0px;
+	border-top-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom: 1px solid #CCCCCC;
+	margin-bottom: 0px;
+	height: 30px;
+	font-size: 16px;
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+                <property name="url" value="jdbc:oracle:thin:@localhost:1521:zzmstar" />
+                <property name="username" value="nsneo" />
+                <property name="password" value="nsneo" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!-- 注册userMapper.xml文件，userMapper.xml位于me.gacl.mapping这个包下，所以resource写成me/gacl/mapping/userMapper.xml-->
+        <!--
+        <mapper resource="me/gacl/mapping/userMapper.xml"/>
+        mapper 对象可以通过程序进行加载
+        sqlSessionFactory.getConfiguration().addMapper(addons.samples.mybatisDemo.DemoSingleEntityMapper.class);
+        -->
+        <mapper class="addons.samples.mybatisDemo.DemoSingleEntityMapper"/>
+
+    </mappers>
+</configuration>

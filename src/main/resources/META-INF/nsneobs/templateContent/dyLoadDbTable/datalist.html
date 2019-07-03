@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+
+</head>
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <ol id="ToolbarCrumb" class="breadcrumb bs-example-popover" style="">
+
+                <div class="row">
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="" class=""><i class="fa fa-random"></i>{CtrlDynField@CtrlDynParam=ARItemShowName}&nbsp;&nbsp;<span style="font-size:14px" id="SampleRecordNum"></span></h4>
+                    </div>
+
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+
+                        <div id="paggingArea" class="btn-group ToolbarCrumb_OpArea_Pagging" btnclass="" role="group" style="">
+
+                        </div>
+
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+
+                        </div>
+
+
+						<div id="ToolbarCrumb_OpArea_SampleQuery" class="input-group custom-search-form ToolbarCrumb_OpArea_SampleQuery" style="display: none;">
+
+						</div>
+
+
+
+                    </div>
+
+                </div>
+            </ol>
+            <!--/#ToolbarCrumb-->
+
+            <div id="RSPanel" class="row">
+
+                <div id="RSPanel_Left" defualtshow="false" class="col-lg-2 col-sm-2 col-md-2  RSPanel-Left-Container">
+                    <div class="RSPanel-Left-Container-child-form">
+                        <form id="queryform">
+
+                            <!--/begin 左侧查询条件区-->
+                            <div id="querycondition_area">
+
+                            </div>
+                            <!--/end 左侧查询条件区-->
+
+                            <!--左侧查询按钮区-->
+                            <div style="text-align: center;margin-top:10px; ">
+                                <button id="querybtn" class="btn btn-primary" type="button"><i class="fa fa-search cust-btn-imgtxt"></i>查询</button>
+                            </div>
+
+                            <!--/#querybtn-->
+
+                        </form>
+                        <!--/#queryform-->
+
+                    </div>
+                    <!--/.RSPanel-Left-Container-child-->
+
+                </div>
+                <!--/#RSPanel_Left 左侧侧边栏区域-->
+
+                <div id="RSPanel_Right" class="col-lg-12" singledyngrid="">
+
+
+                    <div class="row">
+
+                        <table id="bst_table" class="table dataTable table-striped table-bordered table-hover">
+
+                        </table>
+                        <!--/# bst_table-->
+
+                    </div>
+                    <!--/# row RSPanel_Right_DataTable-->
+
+
+                </div>
+                <!--/#RSPanel_Right 右侧侧区域-->
+
+            </div>
+            <!--/.RSPanel row-->
+
+        </div>
+        <!-- /#page-wrapper-content -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<!--bootstrap-datetimepicker-->
+<link href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/datetimepicker/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<!-- bootstrap table-->
+<link rel="stylesheet" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/bootstrap-table.css">
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/bootstrap-table.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/exjs/dhtmlx_fun.js"></script>
+
+
+
+<script type="text/javascript" src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/extensions/bsTableExport/libs/FileSaver/FileSaver.min.js"></script>
+<script type="text/javascript" src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/extensions/bsTableExport/libs/js-xlsx/xlsx.core.min.js"></script>
+<script type="text/javascript" src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/bowercomponents/bootstrap-table/extensions/bsTableExport/tableExport.js"></script>
+
+<!--ztree-->
+<link rel="stylesheet" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/{CtrlDynField@CtrlDynParam=DefaultAppConfigName}/ztree/js/jquery.ztree.all.js"></script>
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+    //模块可访问权限定义
+    var moduleacrs = {WebViewModuleAccessPowerListCtrl};
+    var moduleName = '{CtrlDynField@CtrlDynParam=ARItemShowName}';
+
+</script>
+
+<wcignore>
+    <style>
+        #bst_table{
+            border-top-width: 0px; border-left-width: 0px;
+        }
+    </style>
+
+    <script>
+    //创建通用访问路径对象
+    function createAction(optype,dataid) {
+        return formatCurrentAddressAction("data.json",optype,dataid);
+    }
+
+
+    //全局表格对象
+    var dynDataGridObj = null;
+    //树对象
+    var zTreeObj = null;
+
+    //页面尺寸变化函数
+    function pfSettingWithAndHeight(width, height){
+        //设置表格区域的高度,表格对象的高度需要减去分页操作区的高度
+        $("#RSPanel_Right").find(".fixed-table-body").height(height-$(".clearfix").outerHeight()-6);
+    }
+
+
+
+    $(function(){
+
+        //显示错误消息对话框
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+        //获得所有的界面数据
+        //
+        var viewSettingJson = ajaxAccessServerEx({
+            url:formatCurrentAddressAction("viewSetting.json","viewSetting"),
+            async:true,
+            successjson:function (resultJson){
+                //alert("查询条件字段数量:"+resultJson.queryfield.length);
+
+                if(resultJson.queryfield.length==0){
+                    //sql 语句中不包含查询条件,界面上不显示查询条件
+                    try {
+                        $("#BtnListOpArea").VisualFormIconBtnGroup({
+                            CmdDataObjs: buildEmptyQueryCondition(resultJson.queryfield),resPowers:moduleacrs.powers
+                        });
+                    } catch (e) {
+                        alert(e);
+                    }
+
+                }else if(resultJson.queryfield.length==1){
+                    //sql语句中只包含一个查询条件,界面上在标题栏上显示查询条件
+                    try {
+                        $("#BtnListOpArea").VisualFormIconBtnGroup({
+                            CmdDataObjs: buildSingleQueryCondition(resultJson.queryfield),resPowers:moduleacrs.powers
+                        });
+                    } catch (e) {
+                        alert(e);
+                    }
+                }else{
+                    //sql 语句中包含多个查询条件,在左侧显示查询条件集合
+                    try {
+                        $("#BtnListOpArea").VisualFormIconBtnGroup({
+                            CmdDataObjs: buildMulitQueryCondition(resultJson.queryfield),resPowers:moduleacrs.powers
+                        });
+                    } catch (e) {
+                        alert(e);
+                    }
+
+                    try{
+                        $("#queryform").FormEnterInvoke({submitbtnid:"querybtn"});
+                    }catch(e){
+                        alert(e);
+                    }
+
+                }
+
+
+                //绑定清空值的按钮
+                $('.btn-input-clear').click(function () {
+                    //alert($(this).data('targetinput'));
+                    $('#'+$(this).data('targetinput')).val("");
+                });
+
+                //默认失效
+                $('#exportbtn').prop('disabled',true);
+
+
+                //日期类型输出框
+                $(".form_datetime").datetimepicker({
+                    language: 'zh-CN',
+                    weekStart: 1,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 2,
+                    minView: 2,
+                    forceParse: 0,
+                    format: 'yyyy-mm-dd'
+                });
+            }
+        });
+
+    });
+
+    //空查询条件
+    function buildEmptyQueryCondition(viewSettingJson) {
+        return [
+            {
+                "id": "querydbbtn",
+                "name": "查询",
+                "btnShowText":"查询",
+                "caption":"查询数据",
+                "icon": "fa fa-search",
+                "reqPowers":[],
+                "btnclass":"",
+                "clickfunobj":function () {
+
+                    console.log("访问服务器[0]:"+createAction('query'));
+                    //alert('查询数据');
+                    ajaxGetAccessServerEx(createAction('query'), function(result){
+
+                        console.log(result);
+
+                        try{
+                            if(dynDataGridObj==null){
+                                dynDataGridObj = $('#bst_table').bootstrapTable(result);
+                                $(window).resize();
+                            }else{
+                                dynDataGridObj.bootstrapTable('load',result.data);
+                            }
+
+
+                            $('#exportbtn').prop('disabled',false);
+                        }catch (e){
+                            console.log(e);
+                        }
+
+                    });
+                }
+            },{
+                "id": "exportbtn",
+                "name": "导出",
+                "btnShowText":"导出",
+                "caption":"导出数据",
+                "icon": "fa fa-file-excel-o",
+                "reqPowers":[],
+                "btnclass":"",
+                "clickfunobj":function () {
+                    //alert('导出数据');
+                    try{
+                        $('#bst_table').tableExport({fileName:moduleName,type:'excel',excelFileFormat:'xmlss',worksheetName:[moduleName]});
+                    }catch(e){
+                        alert(e);
+                    }
+                }
+            }
+        ];
+    }
+
+
+    //单查询条件
+    function buildSingleQueryCondition(viewSettingJson) {
+
+        var dtype = viewSettingJson[0].dataType.toLowerCase();
+        var singleConditionStr = "";
+        if(dtype=="float"||dtype=="double"){
+            singleConditionStr = "<input id=\"SampleQueryInput\" class=\"form-control checkfield\" datatype=\"float\" datatypeinfo=\""+viewSettingJson[0].showName+"数据类型异常\" type=\"text\" placeholder=\"请输入查询信息\">\n" +
+                "<span class=\"input-group-btn\">\n" +
+                "<button data-targetinput=\"SampleQueryInput\" class=\"btn btn-primary btn-input-clear\" type=\"button\">\n" +
+                "<i class=\"fa fa-repeat\"></i>\n" +
+                "</button>\n" +
+                "<button id=\"SampleQueryInputBtn\" class=\"btn btn-primary\" type=\"button\">\n" +
+                "<i class=\"fa fa-search\"></i>\n" +
+                "</button>\n" +
+                "</span>";
+        }else if(dtype=="integer"||dtype=="long"){
+            singleConditionStr = "<input id=\"SampleQueryInput\" class=\"form-control checkfield\" datatype=\"int\" datatypeinfo=\""+viewSettingJson[0].showName+"数据类型异常\" type=\"text\" placeholder=\"请输入查询信息\">\n" +
+                "<span class=\"input-group-btn\">\n" +
+                "<button data-targetinput=\"SampleQueryInput\" class=\"btn btn-primary btn-input-clear\" type=\"button\">\n" +
+                "<i class=\"fa fa-repeat\"></i>\n" +
+                "</button>\n" +
+                "<button id=\"SampleQueryInputBtn\" class=\"btn btn-primary\" type=\"button\">\n" +
+                "<i class=\"fa fa-search\"></i>\n" +
+                "</button>\n" +
+                "</span>";
+        }else if(dtype=="date"||dtype=="datetime"){
+            singleConditionStr = "<input id=\"SampleQueryInput\" class=\"form-control form_datetime\" readonly='readonly' type=\"text\" placeholder=\"请输入查询信息\">\n" +
+                "<span class=\"input-group-btn\">\n" +
+                "<button data-targetinput=\"SampleQueryInput\" class=\"btn btn-primary btn-input-clear\" type=\"button\">\n" +
+                "<i class=\"fa fa-repeat\"></i>\n" +
+                "</button>\n" +
+                "<button id=\"SampleQueryInputBtn\" class=\"btn btn-primary\" type=\"button\">\n" +
+                "<i class=\"fa fa-search\"></i>\n" +
+                "</button>\n" +
+                "</span>";
+        }else{
+            singleConditionStr = "<input id=\"SampleQueryInput\" class=\"form-control checkfield\" datatype=\"string\" datatypeinfo=\""+viewSettingJson[0].showName+"数据类型异常\" type=\"text\" placeholder=\"请输入查询信息\">\n" +
+                "<span class=\"input-group-btn\">\n" +
+                "<button data-targetinput=\"SampleQueryInput\" class=\"btn btn-primary btn-input-clear\" type=\"button\">\n" +
+                "<i class=\"fa fa-repeat\"></i>\n" +
+                "</button>\n" +
+                "<button id=\"SampleQueryInputBtn\" class=\"btn btn-primary\" type=\"button\">\n" +
+                "<i class=\"fa fa-search\"></i>\n" +
+                "</button>\n" +
+                "</span>";
+        }
+
+        $('#ToolbarCrumb_OpArea_SampleQuery').append(singleConditionStr);
+
+
+        //显示单页面查询
+        $('#ToolbarCrumb_OpArea_SampleQuery').show();
+        $('#SampleQueryInputBtn').click(function () {
+
+            //var formData = new FormData($('#tform')[0]);
+            //formData.append(viewSettingJson[0].id, $("#SampleQueryInput").val());
+
+            //alert($("#SampleQueryInput").val());
+
+            if(!checkFormValidationInvoke({formid:"ToolbarCrumb_OpArea_SampleQuery",checkFunSet:DataCheckFunctions})){
+                return;
+            }
+
+            console.log("访问服务器:"+createAction('query'));
+
+            ajaxAccessServerEx({
+                url:createAction('query'),
+                data:""+viewSettingJson[0].id+"="+$("#SampleQueryInput").val(),
+                successjson: function(jsonData) {
+
+                    console.log(jsonData);
+
+                    try{
+                        if(dynDataGridObj==null){
+                            dynDataGridObj = $('#bst_table').bootstrapTable(jsonData);
+                            $(window).resize();
+                        }else{
+                            dynDataGridObj.bootstrapTable('load',jsonData.data);
+                        }
+
+                        $('#exportbtn').prop('disabled',false);
+                    }catch (e){
+                        console.log(e);
+                    }
+                }
+            });
+        })
+
+        return [
+            {
+                "id": "exportbtn",
+                "name": "导出",
+                "btnShowText":"导出",
+                "caption":"导出数据",
+                "icon": "fa fa-file-excel-o",
+                "reqPowers":[],
+                "btnclass":"",
+                "clickfunobj":function () {
+                    //alert('导出数据');
+                    try{
+                        $('#bst_table').tableExport({fileName:moduleName,type:'excel',excelFileFormat:'xmlss',worksheetName:[moduleName]});
+                    }catch(e){
+                        alert(e);
+                    }
+                }
+            }
+        ];
+    }
+
+    //多查询条件
+    function buildMulitQueryCondition(viewSettingJson) {
+
+        $('.ToolbarCrumb_TxtTitle').find('h4').attr('id','ToolbarCrumb_ShowRSPanelLeft');
+        $('#RSPanel_Left').attr('defualtshow',"true");
+        bindShowRSPanelLeft();
+
+        var qcstring = "";
+        $.each(viewSettingJson, function(i,val){
+
+            var dtype = val.dataType.toLowerCase();
+
+            if(dtype=="float"||dtype=="double"){
+
+                qcstring+="<div class=\"form-group\">\n" +
+                    "<label for=\""+val.id+"\">"+val.showName+"</label>\n" +
+                    "<div class=\"input-group\">"+
+                    "<input id=\""+val.id+"\" name=\""+val.id+"\" class=\"form-control checkfield\" datatype=\"float\" datatypeinfo=\""+val.showName+"数据类型异常\" type=\"text\">\n" +
+                    "<span class=\"input-group-btn\">"+
+                    "<button data-targetinput=\""+val.id+"\" class=\"btn btn-default btn-input-clear\" type=\"button\">\n" +
+                    "<i class=\"fa fa-repeat\"></i>\n" +
+                    "</button>"+
+                    "</span>"+
+                    "</div>"+
+                    "</div>";
+
+            }else if(dtype=="integer"||dtype=="long"){
+
+                qcstring+="<div class=\"form-group\">\n" +
+                    "<label for=\""+val.id+"\">"+val.showName+"</label>\n" +
+                    "<div class=\"input-group\">"+
+                    "<input id=\""+val.id+"\" name=\""+val.id+"\" class=\"form-control checkfield\" datatype=\"int\" datatypeinfo=\""+val.showName+"数据类型异常\" type=\"text\">\n" +
+                    "<span class=\"input-group-btn\">"+
+                    "<button data-targetinput=\""+val.id+"\" class=\"btn btn-default btn-input-clear\" type=\"button\">\n" +
+                    "<i class=\"fa fa-repeat\"></i>\n" +
+                    "</button>"+
+                    "</span>"+
+                    "</div>"+
+                    "</div>";
+
+            }else if(dtype=="date"||dtype=="datetime"){
+
+                qcstring+="<div class=\"form-group\">\n" +
+                    "<label for=\""+val.id+"\">"+val.showName+"</label>\n" +
+                    "<div class=\"input-group\">"+
+                    "<input id=\""+val.id+"\" name=\""+val.id+"\" class=\"form-control form_datetime\" readonly=\"readonly\" type=\"text\">\n" +
+                    "<span class=\"input-group-btn\">"+
+                    "<button data-targetinput=\""+val.id+"\" class=\"btn btn-default btn-input-clear\" type=\"button\">\n" +
+                    "<i class=\"fa fa-repeat\"></i>\n" +
+                    "</button>"+
+                    "</span>"+
+                    "</div>"+
+                    "</div>";
+
+            }else{
+
+                qcstring+="<div class=\"form-group \">\n" +
+                    "<label for=\""+val.id+"\">"+val.showName+"</label>\n" +
+                    "<div class=\"input-group\">"+
+                    "<input id=\""+val.id+"\" name=\""+val.id+"\" class=\"form-control checkfield\" datatype=\"string\" datatypeinfo=\""+val.showName+"数据类型异常\" type=\"text\">\n" +
+                    "<span class=\"input-group-btn\">"+
+                    "<button data-targetinput=\""+val.id+"\" class=\"btn btn-default btn-input-clear\" type=\"button\">\n" +
+                    "<i class=\"fa fa-repeat\"></i>\n" +
+                    "</button>"+
+                    "</span>"+
+                    "</div>"+
+                    "</div>";
+            }
+        });
+
+        $('#querycondition_area').prepend(qcstring);
+
+
+        $('#querybtn').click(function () {
+
+            if(!checkFormValidationInvoke({formid:"queryform",checkFunSet:DataCheckFunctions})){
+                return;
+            }
+
+
+            console.log("访问服务器:"+createAction('query'));
+
+            ajaxAccessServerEx({
+                url:createAction('query'),
+                data:$('#queryform').serialize(),
+                successjson: function(jsonData) {
+
+                    console.log(jsonData);
+
+                    try{
+                        if(dynDataGridObj==null){
+                            dynDataGridObj = $('#bst_table').bootstrapTable(jsonData);
+                            $(window).resize();
+                        }else{
+                            dynDataGridObj.bootstrapTable('load',jsonData.data);
+                        }
+                        $('#exportbtn').prop('disabled',false);
+                    }catch (e){
+                        console.log(e);
+                    }
+                }
+            });
+        });
+
+        return [
+            {
+                "id": "exportbtn",
+                "name": "导出",
+                "btnShowText":"导出",
+                "caption":"导出数据",
+                "icon": "fa fa-file-excel-o",
+                "reqPowers":[],
+                "btnclass":"",
+                "clickfunobj":function () {
+                    //alert('导出数据');
+                    try{
+                        $('#bst_table').tableExport({fileName:moduleName,type:'excel',excelFileFormat:'xmlss',worksheetName:[moduleName]});
+                    }catch(e){
+                        alert(e);
+                    }
+                }
+            }
+        ];
+    }
+
+</script></wcignore>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

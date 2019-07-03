@@ -1,0 +1,1 @@
+//common login javascript setting

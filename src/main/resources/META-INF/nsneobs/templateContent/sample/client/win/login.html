@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app encryption="" encryptiontype="" encryptionvalue="">
+    <window id="userLogin" name="用户登录窗口"
+            assembly="Newstar.Platform.Client.JSWinClient"
+            class="Newstar.Platform.Client.JSWinClient.UserLoginWin" bridgeClass="">
+
+        <propertySet>
+            <property id="MainImage" name="" type="" value="InfoMainImage"></property>
+            <property id="MainTitle" name="" type="" value="欢迎使用海大ASP通用客户端"></property>
+            <property id="MainVersion" name="" type="" value="4.0"></property>
+            <property id="MainCorp" name="" type="" value="海大新星"></property>
+
+            <property id="ShowInTaskbar" name="" type="" value="true"></property>
+            <property id="ShowIcon" name="" type="" value="true"></property>
+            <property id="Icon" name="" type="" value="AppContextWinIcon"></property>
+
+            <property id="Op_ExcuteId" name="" type="" value="login"></property>
+            <property id="Op_CmdId" name="" type="" value="login"></property>
+
+            <!--登录操作发送的数据地址,该操作绑定到客户端组件 Newstar.Platform.Client.JSWinClient.UserLoginWin-->
+            <property id="Op_SendDataUrl" name="" type="" value="./login.html/data.json?DoSomething=login"></property>
+        </propertySet>
+
+        <!-- 静态数据对象 -->
+        <!--
+        <staticData>
+            <root encryption="" encryptiontype="" encryptionvalue="">
+			    <dataset>
+			    	<data cmdid="login" flag="">
+			    		<fieldset id="error" name="异常数据">
+			    			<fieldset id="SysError_Version" name="版本异常">
+			    				<field id="SysError_Version_Info" value="客户端程序版本异常,请更新客户端版本"/>
+			    			</fieldset>
+			    		</fieldset>
+			    	</data>
+			    </dataset>
+			</root>
+        </staticData>
+         -->
+    </window>
+</app>

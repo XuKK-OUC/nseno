@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+    <!--
+    <endpoint implementation="addons.samples.WebServiceDemo" name="WebServiceDemo" url-pattern="/services/WebServiceDemo"/>
+    <endpoint implementation="addons.fast.wxService.wxServer.AsWebservice" name="asWebservice" url-pattern="/services/asWebservice"/>
+    http://localhost:8080/services/NsneoDataTransferService
+    -->
+    <!--
+    <endpoint implementation="addons.fast.wxService.wxServer.AsWebservice" name="asWebservice" url-pattern="/services/asWebservice"/>
+    <endpoint implementation="addons.common.dataTransfer.transferService.DataTransferService" name="NsneoDataTransferService" url-pattern="/services/NsneoDataTransferService"/>
+    -->
+
+    <endpoint implementation="addons.common.dataTransfer.transferService.DataTransferService" name="NsneoDataTransferService" url-pattern="/services/NsneoDataTransferService"/>
+
+    <endpoint implementation="addons.samples.webService.standardWS.StandardWSDemo" name="StandardWSDemoService" url-pattern="/services/StandardWSDemoService"/>
+
+</endpoints>

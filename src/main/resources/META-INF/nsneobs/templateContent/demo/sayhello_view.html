@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+
+</head>
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <div class="container-fluid" style="height: 600px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">这是测试页面</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        这是测试页面内容
+                        {demo.CtrlBPMTest}
+
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<wcignore><script>
+
+    $(function(){
+
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+    });
+
+</script></wcignore>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

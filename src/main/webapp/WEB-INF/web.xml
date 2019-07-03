@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    -->
+
+    <listener>
+        <listener-class>com.nsneo.web.webContainer.WebContainerInitListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.nsneo.web.webContainer.WebHttpSessionListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.nsneo.web.webContainer.WebHttpRequestListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
+    <!--解决跨域问题-->
+    <!--<filter>-->
+        <!--<filter-name>cors</filter-name>-->
+        <!--<filter-class>addons.nsneo.pub.SimpleCORSFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>cors</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!--解决跨域问题-->
+    <filter>
+        <filter-name>SetCharacterEncoding</filter-name>
+        <filter-class>com.nsneo.web.servlet.SetCharacterEncodingFilter</filter-class>
+        <!--
+        <async-supported>true</async-supported>
+        -->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SetCharacterEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ClearBrowserCache</filter-name>
+        <filter-class>com.nsneo.web.servlet.ClearBrowserCacheFilter</filter-class>
+        <!--
+        <async-supported>true</async-supported>
+        -->
+        <init-param>
+            <param-name>CacheFile</param-name>
+            <param-value>.jpg,_link.jsp,</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ClearBrowserCache</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--框架安全性限制,限制只能部分 frameset 归属的域名可以访问-->
+    <!--
+    <filter>
+        <filter-name>HttpHeaderSecurityFilter</filter-name>
+        <filter-class>com.nsneo.web.servlet.headerSecurityFilter.HttpHeaderSecurityFilter</filter-class>
+        <init-param>
+            <param-name>antiClickJackingOption</param-name>
+            <param-value>ALLOW-FROM</param-value>
+        </init-param>
+        <init-param>
+            <param-name>antiClickJackingUri</param-name>
+            <param-value>http://zzmpc:8020/</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>HttpHeaderSecurityFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    -->
+
+    <!--系统访问日志记录过滤器-->
+    <filter>
+        <filter-name>AddonsSysUserAccessRecordFilter</filter-name>
+        <filter-class>addons.common.entity.dbLogger.AddonsSysUserAccessRecordFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AddonsSysUserAccessRecordFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+    <!--web service解析-->
+    <servlet>
+        <description>JAX-WS endpoint</description>
+        <display-name>WSServlet</display-name>
+        <servlet-name>WSServlet</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WSServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理模块访问控制-->
+    <servlet>
+        <servlet-name>AccessModuleControl</servlet-name>
+        <servlet-class>com.nsneo.web.sysModuleAccess.SysModuleAccessControl</servlet-class>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>1</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessModuleControl</servlet-name>
+        <url-pattern>/accessModule.html</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理模块访问控制-->
+    <servlet>
+        <servlet-name>AccessModuleControlById</servlet-name>
+        <servlet-class>com.nsneo.web.sysModuleAccess.SysModuleAccessControl</servlet-class>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>2</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessModuleControlById</servlet-name>
+        <url-pattern>/accessModulebyId.html</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理模块访问控制-->
+    <servlet>
+        <servlet-name>AccessModuleControlByUuid</servlet-name>
+        <servlet-class>com.nsneo.web.sysModuleAccess.SysModuleAccessControl</servlet-class>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>3</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessModuleControlByUuid</servlet-name>
+        <url-pattern>/accessModulebyUuid.html</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理路径映射工作,映射路径重定向,http://localhost:8080/rdpneodo/desktop 为 http://localhost:8080/neodo/desktop,-->
+    <servlet>
+        <servlet-name>rdpneodo</servlet-name>
+        <servlet-class>com.nsneo.web.webContainer.PathRedirectBaseServlet</servlet-class>
+
+        <init-param>
+            <param-name>PathName</param-name>
+            <param-value>/rdpneodo/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>MapName</param-name>
+            <param-value>/neodo/</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>rdpneodo</servlet-name>
+        <url-pattern>/rdpneodo/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理定制化输出-->
+    <servlet>
+        <servlet-name>cusout</servlet-name>
+        <servlet-class>com.nsneo.web.servlet.WebCustomOutService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cusout</servlet-name>
+        <url-pattern>/cusout/*</url-pattern>
+    </servlet-mapping>
+
+    <!--负责处理普通页面操作-->
+    <servlet>
+        <servlet-name>neodo</servlet-name>
+        <servlet-class>com.nsneo.web.webTemplate.CommonWebFaceServiceImp</servlet-class>
+        <!--
+        <init-param>
+            <param-name>MenuNamepace</param-name>
+            <param-value>divice</param-value>
+        </init-param>
+        <init-param>
+            <param-name>AsyncServlet</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>neodo</servlet-name>
+        <url-pattern>/neodo/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理服务型的可访问资源-->
+    <servlet>
+        <servlet-name>svneodo</servlet-name>
+        <servlet-class>com.nsneo.web.webTemplate.CommonWebFaceServiceImp</servlet-class>
+        <init-param>
+            <param-name>InitType</param-name>
+            <param-value>Service</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ARType</param-name>
+            <param-value>Service</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>svneodo</servlet-name>
+        <url-pattern>/svneodo/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理 bpm 流程页面操作-->
+    <servlet>
+        <servlet-name>bpm</servlet-name>
+        <servlet-class>com.nsneo.web.bpm.BPMWebFaceServiceImp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bpm</servlet-name>
+        <url-pattern>/bpm/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!--负责处理文件上传-->
+    <servlet>
+        <servlet-name>neoupload</servlet-name>
+        <servlet-class>com.nsneo.web.webTemplate.CommonWebFaceServiceImp</servlet-class>
+        <multipart-config>
+            <max-file-size>52428800</max-file-size>
+            <max-request-size>52428800</max-request-size>
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>neoupload</servlet-name>
+        <url-pattern>/neoupload/*</url-pattern>
+    </servlet-mapping>
+
+    <!--负责处理无访问权限控制的模块-->
+    <servlet>
+        <servlet-name>neoview</servlet-name>
+        <servlet-class>com.nsneo.web.webTemplate.CommonWebFaceServiceImp</servlet-class>
+        <init-param>
+            <param-name>InitType</param-name>
+            <param-value>MapUser</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>neoview</servlet-name>
+        <url-pattern>/neoview/*</url-pattern>
+    </servlet-mapping>
+
+    <!--负责处理无用户登录的模块-->
+    <servlet>
+        <servlet-name>neonu</servlet-name>
+        <servlet-class>com.nsneo.web.webTemplate.CommonWebFaceServiceImp</servlet-class>
+        <!--
+        <init-param>
+            <param-name>SpecialUser</param-name>
+            <param-value>SysAdmin</param-value>
+        </init-param>
+        <init-param>
+            <param-name>AsyncServlet</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        -->
+        <init-param>
+            <param-name>SpecialUser</param-name>
+            <param-value>SysAdmin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>neonu</servlet-name>
+        <url-pattern>/neonu/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!--************************************************************************************************************-->
+
+    <!-- springlesson4 mvc 请求配置,访问路径类似:http://localhost:8080/sgser/home/hello -->
+    <servlet>
+        <servlet-name>springService</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/beans_mvc.xml</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springService</servlet-name>
+        <url-pattern>/sgser/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- springlesson4 mvc 请求配置,访问路径类似:http://localhost:8080/sgmpser/home/hello -->
+    <servlet>
+        <servlet-name>springServiceMP</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/beans_mvc.xml</param-value>
+        </init-param>
+        <multipart-config>
+            <max-file-size>524288000</max-file-size>
+            <max-request-size>524288000</max-request-size>
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springServiceMP</servlet-name>
+        <url-pattern>/sgmpser/*</url-pattern>
+    </servlet-mapping>
+
+    <!--************************************************************************************************************-->
+
+    <!-- 登录时图片验证码生成服务 -->
+    <servlet>
+        <servlet-name>WebCheckCodeImage</servlet-name>
+        <servlet-class>addons.common.utils.webCheckCode.CheckCodeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebCheckCodeImage</servlet-name>
+        <url-pattern>/WebCheckCodeImage.html</url-pattern>
+    </servlet-mapping>
+
+    <!--************************************************************************************************************-->
+
+    <!-- session 超时时间,单位是 分钟 -->
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+    <!--************************************************************************************************************-->
+    <!--首页-->
+    <welcome-file-list>
+        <welcome-file>firstpage.jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/errorpage.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/errorpage.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/errorpage.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/errorpage.jsp</location>
+    </error-page>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <trim-directive-whitespaces>true</trim-directive-whitespaces>
+        </jsp-property-group>
+    </jsp-config>
+
+
+    <!--************************************************************************************************************-->
+    <!--附加的系统处理对象,针对健康管理-->
+    <!--针对健康管理的个人信息处理需要有两部分,普通的servlet切换,用户当前模块的记录-->
+    <!--针对jkgl个人信息处理-->
+    <servlet>
+        <servlet-name>persondo</servlet-name>
+        <servlet-class>com.nsneo.web.webTemplate.CommonWebFaceServiceImp</servlet-class>
+        <init-param>
+            <param-name>namespace</param-name>
+            <param-value>personal</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>persondo</servlet-name>
+        <url-pattern>/persondo/*</url-pattern>
+    </servlet-mapping>
+    <!--针对jkgl个人信息处理,负责处理模块访问控制-->
+    <servlet>
+        <servlet-name>AccessModuleControlHC</servlet-name>
+        <servlet-class>com.nsneo.web.sysModuleAccess.SysModuleAccessControl</servlet-class>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>namespace</param-name>
+            <param-value>personal</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessModuleControlHC</servlet-name>
+        <url-pattern>/hcAccessModule.html</url-pattern>
+    </servlet-mapping>
+    <!--负责处理模块访问控制-->
+    <servlet>
+        <servlet-name>AccessModuleControlHCByUuid</servlet-name>
+        <servlet-class>com.nsneo.web.sysModuleAccess.SysModuleAccessControl</servlet-class>
+        <init-param>
+            <param-name>type</param-name>
+            <param-value>3</param-value>
+        </init-param>
+        <init-param>
+            <param-name>namespace</param-name>
+            <param-value>personal</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccessModuleControlHCByUuid</servlet-name>
+        <url-pattern>/hcAccessModulebyUuid.html</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

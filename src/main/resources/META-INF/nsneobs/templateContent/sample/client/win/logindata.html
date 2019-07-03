@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root encryption="" encryptiontype="" encryptionvalue="">
+
+    <!-- 数据控制信息 -->
+    <control>
+        <excute id="login" name="登录" runclass="" userid="8106" userpwd="1" viewtype="" queryviewtype="" moduleid="">
+            <paramSet>
+            </paramSet>
+
+        </excute>
+    </control>
+
+
+    <dataset>
+        <!-- 命令列表 -->
+
+
+        <data cmdid="login" flag="">
+
+            <!-- 输出用户登录信息 -->
+            <!--用户登录成功-->
+            <field id="userId" name="登录用户编码" type="String" value="8106"/>
+            <field id="userName" name="登录用户名" type="String" value="8106"/>
+
+            <field id="userOrgId" name="登录用户机构编码" type="String" value="O0000000000000000002"/>
+            <field id="userOrgShowId" name="登录用户机构显示编码" type="String" value="JNTX"/>
+            <field id="userOrgName" name="登录用户机构名称" type="String" value="济南特星鞋业批发市场有限公司"/>
+
+            <field id="MachineShowId" name="主机显示编码" type="String" value="物流POS1"/>
+            <!--
+            <field id="HomePage" name="主页" value="./homePage.html"/>
+            <field id="HomePage" name="主页" value="./dockHomePage.html"/>
+            <field id="HomePage" name="主页" value="./magicDockHomePage.html"/>
+            <field id="HomePage" name="主页" value="./dockHomePage.html"/>
+            <field id="HomePage" name="主页" value="./tool/tooldemoFirstPage.html"/>
+            <field id="HomePage" name="主页" value="./tool/tooldemoModuleList.html"/>
+            <field id="HomePage" name="主页" value="./tool/tooldemoBrowerHomePage.html"/>
+            -->
+
+            <field id="HomePage" name="主页" value="./home.html"/>
+
+            <field id="ExitPage" name="用户登录后退出系统页面" value="./exit.html"/>
+
+            <!-- 通过客户端打开浏览器,重定向页面 -->
+            <field id="loginAddress" name="登录地址" value="{ResourceDomainRootUrl}/neonu/index.html"/>
+            <field id="directLoginAddress" name="直接登录地址" value="{ResourceDomainRootUrl}/neonu/index/login?userloginname=\{paramln\}&amp;userloginpwd=\{parampw\}"/>
+            <field id="exitAddress" name="退出地址" value="{ResourceDomainRootUrl}/endpage.jsp"/>
+
+            <!-- 支持 warn,info,debug,error,fatal -->
+            <field id="ClientLogLevel" name="客户端日志输出等级" type="String" value=""/>
+
+            <!-- 错误数据 -->
+
+
+        </data>
+    </dataset>
+</root>
+{dataout:empty}

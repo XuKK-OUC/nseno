@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <unit id="01" start="01" startHandler="" createHandler="">
+        <node id="01" name="开始节点" type="人工节点" handler="" usingLengthTimes="60" outTimeOpId="02">
+            <op id="01" name="测试操作" handler="" preHandler="" afterHandler="">
+
+                <invoke id="invoke01" name="" index="" type="BaseOpHandler" invokeClass="addons.common.orderFlow.sample.OpInovkeSampleImp"/>
+
+                <result id="01" name="测试结果集" target="02" handler="" usingLengthTimes="3600"/>
+            </op>
+            <op id="02" name="测试操作" handler="" preHandler="" afterHandler="">
+                <result id="01" name="测试结果集" target="02" handler="" usingLengthTimes=""/>
+            </op>
+
+
+            <op id="03" name="空调用操作" handler="" preHandler="" afterHandler="">
+                <invoke id="invoke03" name="" index="" type="BaseOpHandler" invokeClass="addons.common.orderFlow.sample.OpInovkeSampleImp"/>
+            </op>
+        </node>
+
+        <node id="02" name="结束节点" type="人工节点" handler=""/>
+        <node id="02" name="结束节点2" type="人工节点" handler=""/>
+    </unit>
+</config>

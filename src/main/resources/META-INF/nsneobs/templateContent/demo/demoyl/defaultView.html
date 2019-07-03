@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+
+</head>
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <ol id="ToolbarCrumb" class="breadcrumb bs-example-popover" style="">
+
+                <div class="row">
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="ToolbarCrumb_ShowRSPanelLeft" class=""><i class="fa fa-align-justify"></i>示例程序[增删改查]</h4>
+
+                    </div>
+
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+
+                        <div id="paggingArea" class="btn-group ToolbarCrumb_OpArea_Pagging" btnclass="" role="group" style="">
+
+                        </div>
+
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </ol>
+            <!--/#ToolbarCrumb-->
+
+            <div id="RSPanel" class="row">
+
+                <div id="RSPanel_Left" defualtshow="true" class="col-lg-2 col-sm-2 col-md-2">
+                    <form id="queryform">
+                        <!--查询条件-->
+                        <div class="form-group">
+                            <label for="bianma">物料编码</label>
+                            <input type="text" class="form-control" name="bianma" id="bianma" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="QueryCondition.miaoshu">物料描述</label>
+                            <input type="text" class="form-control" id="QueryCondition.miaoshu" name="QueryCondition.miaoshu" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="QueryCondition.zhiliangxiaxian" style="">质量下限</label>
+                            <div id="QueryCondition.zhiliangxiaxian" class="form-group input-group">
+                                <input class="form-control" type="text">
+                                <span class="input-group-addon">公斤</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="QueryCondition.shujufanwei">数据范围</label>
+                            <select class="form-control" id="QueryCondition.shujufanwei">
+                                <option>所有数据</option>
+                                <option>仅烤片数据</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="QueryCondition.shujushixiao">数据时效</label>
+                            <select class="form-control" id="QueryCondition.shujushixiao">
+                                <option>最新监测数据</option>
+                                <option>所有监测数据</option>
+                            </select>
+                        </div>
+
+
+                        <input type="hidden" id="CurrentOrderByFieldName" name="QueryCondition.orderByFieldName" value="userName">
+                        <input type="hidden" id="CurrentOrderByFieldType" name="QueryCondition.orderByType" value="true">
+
+                        <!--simpleQueryConditionValue-->
+                        <input type="hidden" id="simpleQueryConditionValue" name="simpleQueryConditionValue" value="" />
+
+                        <!--selected rowid-->
+                        <input type="hidden" id="selectedRecordRowId" name="selectedRecordRowId" value="" />
+
+
+                        <div style="text-align: center;">
+                            <button class="btn btn-primary" type="button" onclick="queryResult()"><i class="fa fa-search cust-btn-imgtxt"></i>查询</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!--/#RSPanel_Left-->
+
+                <div id="RSPanel_Right" class="col-lg-12" singledyngrid="dhtmlx">
+
+                    <div id="gridbox" class="custom_singlegridinpage" style=""></div>
+
+                </div>
+                <!--/#RSPanel_Right-->
+
+            </div>
+            <!--/.RSPanel row-->
+
+        </div>
+        <!-- /#page-wrapper-content -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<!-- input modal -->
+<div id="inputmodaldialog" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">录入数据</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                通用信息
+                            </div>
+                            <div class="panel-body">
+                                <form class="" id="mainform" name="mainform" targeturl="" method="post" action="">
+                                    <div class="form-group">
+
+                                        <div class="col-sm-4">
+                                            <label class="requiredflag" for="JCCXEntity:field1">物料编码</label>
+                                            <input type="text" class="form-control required checkfield"  requiredinfo="物料编码不能为空" name="JCCXEntity:field1" id="JCCXEntity:field1" placeholder="" value="">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field2">品种</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field2" id="JCCXEntity:field2" placeholder="" value="">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field3">产地</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field3" id="JCCXEntity:field3" placeholder="" value="">
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field4">形态</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field4" id="JCCXEntity:field4" placeholder="" value="">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field5">类型</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field5" id="JCCXEntity:field5" placeholder="" value="">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field6">等级</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field6" id="JCCXEntity:field6" placeholder="" value="">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field7">部位</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field7" id="JCCXEntity:field7" placeholder="" value="">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field8">档次</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field8" id="JCCXEntity:field8" placeholder="" value="">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="" for="JCCXEntity:field9">产区</label>
+                                            <input type="text" class="form-control" name="JCCXEntity:field9" id="JCCXEntity:field9" placeholder="" value="">
+                                        </div>
+
+                                        <input type="hidden" id="JCCXEntity:id" name="JCCXEntity:id" value="">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.panel_body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="mainformbtn" type="button" class="btn btn-info" onclick="submitAddRecord()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/.inputmodaldialog-->
+
+<!--dhtmlx gridx-->
+<link rel="stylesheet" type="text/css" href="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/dhtmlx/skins/web/dhtmlx.css" />
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/dhtmlx/codebase/dhtmlx.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/exjs/dhtmlx_fun.js"></script>
+<script src="{CtrlDynField@CtrlDynParam=ContextUrl}/resources/pages/nsneobs/exjs/dhtmlx_ex.js"></script>
+
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+
+
+    var jsonDataUrl =    CurrentPageUrl+"/data.json?controlPlaceSymbol=demo.demoyl.CtrlData&contrlClass=addons.samples.web.demoyl.CtrlData";
+    var deleteDataUrl =  CurrentPageUrl+"/data.json?controlPlaceSymbol=demo.demoyl.CtrlData&contrlClass=addons.samples.web.demoyl.CtrlData&DoSomething=delete";
+    var editDataUrl =    CurrentPageUrl+"/data.json?controlPlaceSymbol=demo.demoyl.CtrlData&contrlClass=addons.samples.web.demoyl.CtrlData&DoSomething=edit";
+    var addDataUrl =     CurrentPageUrl+"/data.json?controlPlaceSymbol=demo.demoyl.CtrlData&contrlClass=addons.samples.web.demoyl.CtrlData&DoSomething=add";
+
+    //模块可访问权限定义
+    var moduleacrs = {WebViewModuleAccessPowerListCtrl};
+
+</script>
+
+<wcignore><script>
+    
+    function queryResult() {
+        var field1value = $("#bianma").val();
+        var targetjsonurl = jsonDataUrl+"&field1="+ field1value;
+        if(myGrid!=null){
+            ajaxAccessServer({url:targetjsonurl,successjson:function (result) {
+                try{
+                    myGrid.clearAll();
+                    myGrid.parse(result.data, function(){},"json");
+                }catch(e){
+                    alert(e);
+                }
+            }});
+        }
+    }
+
+    //引入所有命令数据
+    var ModuleCmdLt = [{
+        "id": "addbtn",
+        "name": "新增",
+        "btnShowText":"",
+        "btnShowType":"",
+        "icon": "fa fa-plus",
+        "actionName": "",
+        "webBtnParam": "",
+        "outParam": "",
+        "clickfun":"",
+        "reqPowers":["01"],
+        "caption":"新增数据",
+        "clickfunobj":function () {
+            try {
+                $("#mainform").clearForm(true);
+                $("#inputmodaldialog").VisualModalInputDialog();
+            } catch (e) {
+                alert(e);
+            }
+        }
+    },{
+        "id": "editbtn",
+        "name": "编辑",
+        "btnShowText":"",
+        "btnShowType":"",
+        "icon": "fa fa-edit",
+        "actionName": "",
+        "webBtnParam": "",
+        "outParam": "",
+        "clickfun":"",
+        "reqPowers":["02"],
+        "caption":"编辑数据",
+        "clickfunobj":function () {
+            var selectedId=myGrid.getSelectedRowId();
+            if(selectedId==null){
+                alert("请选择行");
+                return;
+            }
+            var targetUrl = editDataUrl+"&id="+selectedId;
+            try{
+                ajaxAccessServer(
+                        {
+                            url:targetUrl,
+                            successjson:function (jsonObj) {
+                                $("#mainform").JsonToForm({json:jsonObj.data.rows[0],namespace:"JCCXEntity"});
+                                $("#inputmodaldialog").VisualModalInputDialog();
+                            }
+                        });
+            }catch (e){
+                alert(e);
+            }
+        }
+    },{
+        "id": "deletebtn",
+        "name": "删除",
+        "btnShowText":"",
+        "btnShowType":"",
+        "icon": "fa fa-minus",
+        "actionName": "",
+        "webBtnParam": "",
+        "outParam": "",
+        "clickfun":"",
+        "reqPowers":["03"],
+        "caption":"删除数据",
+        "btnclass":" btn btn-danger",
+        "clickfunobj":function () {
+            var selectedId=myGrid.getSelectedRowId();
+            if(selectedId==null){
+                alert("请选择行");
+                return;
+            }
+            var targetUrl = deleteDataUrl+"&id="+selectedId;
+            try{
+                ajaxAccessServer(
+                        {
+                            url:targetUrl,
+                            successjson:function (result) {
+                                myGrid.deleteRow(selectedId);
+                            }
+                        });
+            }catch (e){
+                alert(e);
+            }
+        }
+    },{
+        "id": "",
+        "name": "导入",
+        "btnShowText":"",
+        "btnShowType":"",
+        "icon": "fa fa-file-excel-o",
+        "actionName": "import",
+        "webBtnParam": "",
+        "outParam": "",
+        "caption":"从Excel导入数据",
+        "btnclass":" btn btn-success"
+    }];
+
+    var myGrid = null;
+
+    function submitAddRecord() {
+        try{
+            checkFormValidationInfo($("#mainform"));
+        }catch(e){
+            alert(e);
+            return;
+        }
+        var targetUrl = addDataUrl;
+        try{
+            ajaxAccessServer(
+                    {
+                        formid:"mainform",
+                        url:targetUrl,
+                        clearForm:true,
+                        successjson:function (jsonObj) {
+                            var rowid = jsonObj.data.rows[0].id;
+                            var rowdata = jsonObj.data.rows[0].data;
+                            var selectedId=myGrid.getSelectedRowId();
+                            if(selectedId!=rowid){
+                                var pos = myGrid.getRowsNum();  //gets the number of rows in grid
+                                myGrid.addRow(rowid,rowdata,pos);
+                            }else{
+                                for(i=0;i<rowdata.length;i++){
+                                    myGrid.cells(rowid,i).setValue(rowdata[i]);
+                                }
+                            }
+                            $('#inputmodaldialog').modal('hide');
+                        }
+                    });
+        }catch (e){
+            alert(e);
+        }
+    }
+
+
+    function pfSettingWithAndHeight(width, height){
+        $("#gridbox").width($("#RSPanel_Right").width());
+        $("#gridbox").height($("#RSPanel_Right").height());
+
+
+        if(myGrid==null){
+            try{
+                //myGrid = createDhtmlxGrid({url:jsonDataUrl,boxid:"gridbox"});
+                $.getJSON(jsonDataUrl, function(result){
+                    myGrid=createDhtmlxGridByJson({boxid:"gridbox"},result);
+                });
+            }catch (ef){
+                alert(ef);
+            }
+        }else{
+            try{
+                myGrid.setSizes($("#RSPanel_Right").width(),$("#RSPanel_Right").height());
+            }catch(e){
+                alert(e);
+            }
+        }
+    }
+
+    $(function(){
+
+        //显示错误消息对话框
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+        //命令按钮
+        try {
+            $("#BtnListOpArea").VisualFormIconBtnGroup({
+                CmdDataObjs: ModuleCmdLt,resPowers:moduleacrs.powers
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+        try {
+            $("#queryform").FormEnterInvoke();
+        } catch (e) {
+            alert(e);
+        }
+
+        try {
+            $("#mainform").FormEnterInvoke({submitbtnid:"mainformbtn"});
+        } catch (e) {
+            alert(e);
+        }
+
+
+
+    });
+
+</script></wcignore>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

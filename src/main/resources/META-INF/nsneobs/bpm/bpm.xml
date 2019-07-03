@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Bpms>
+    <Bpm id="InStockDemo" name="示例程序">
+        <Contexts/>
+        <Datas>
+
+            <Data id="billLt" name="主数据查询结果列表"
+                  dataRunClass="com.nsneo.pub.bpm.demo.BPMDemoEntityDemo"
+                  primaryFieldName="orderId"
+                  filterConditionRunClass="com.nsneo.pub.bpm.data.imp.BaseDataFilterConditionWithSelect"
+                  runClass="com.nsneo.pub.bpm.bpmContext.imp.BPMBusContextDataObjforQueryResultList">
+
+                <ParamSet>
+                    <Param id="conditionBeans" name="t">
+                        <ParamValue id="t" value="com.nsneo.pub.bpm.demo.BPMQueryConditionDemoBeans"/>
+                    </Param>
+                </ParamSet>
+
+            </Data>
+
+            <Data id="main" name="流程主数据"
+                  dataRunClass="com.nsneo.pub.bpm.demo.BPMDemoEntityDemo"
+                  primaryFieldName="orderId"
+                  runClass="com.nsneo.pub.bpm.bpmContext.imp.BPMBusContextDataObjforPrimaryDefaultImp"/>
+
+            <Data id="detail" name="明细数据"
+                  dataRunClass="com.nsneo.pub.bpm.demo.EntityDemoInnerDetail"
+                  param="primary=main;field=innerDetails"
+                  runClass="com.nsneo.pub.bpm.bpmContext.imp.BPMBusContextDataObjforDetailList"/>
+
+        </Datas>
+
+        <Cmds>
+            <Cmd id="001" name="创建消息命令" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="CreateData"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+
+            <Cmd id="002" name="保存数据消息命令" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="SaveData"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+
+            <Cmd id="003" name="页面数据刷新" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="MsgWebRefresh"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+            <Cmd id="004" name="转换到下一个状态" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="NextNode"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                        <ParamValue id="NodeId" value="00"/>
+                        <ParamValue id="ActivityId" value="00"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+
+            <Cmd id="005" name="增加明细数据" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="AddDetailData"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+
+            <Cmd id="006" name="独立存储" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="SingleSave"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+
+            <Cmd id="007" name="加载数据" port="" runClass="com.nsneo.pub.bpm.demo.BPMExcuteCmdDemoImp">
+                <ParamSet>
+                    <Param>
+                        <ParamValue id="MsgId" value="LoadData"/>
+                        <ParamValue id="MsgType" value="CmdMsg"/>
+                    </Param>
+                </ParamSet>
+            </Cmd>
+
+
+        </Cmds>
+
+        <Msgs>
+            <Msg name="测试消息处理" type="CmdMsg" runClass="com.nsneo.pub.bpm.demo.BPMExcuteMsgDemoImp" param="data=main;appendId=detail"/>
+        </Msgs>
+
+        <Workins>
+        </Workins>
+
+        <Ports defaultPort="001">
+
+            <Port id="001" view="demo.inStockIndex_view" primaryData="billLt"/>
+            <Port id="002" view="demo.inStockEdit_view" primaryData="main">
+                <Path pattern="main"/>
+            </Port>
+        </Ports>
+
+        <Nodes defaultNode="00">
+            <Node id="00" name="新建" type="">
+                <Activity id="00" name="提交">
+                    <Target targetNode="01"/>
+                </Activity>
+            </Node>
+
+            <Node id="01" name="提交" type="">
+                <Activity id="00" name="" type="">
+                    <Target targetNode="00"/>
+                </Activity>
+            </Node>
+
+        </Nodes>
+    </Bpm>
+</Bpms>

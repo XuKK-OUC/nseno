@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app encryption="" encryptiontype="" encryptionvalue="">
+    <runtime fileVersion="" name="" mainWin="homePage">
+        <mainMoudule mouduleName="" mainClass=""  version=""/>
+    </runtime>
+    <script>
+        <!--
+
+        //锁定窗口
+        function LockWinFun()
+        \{
+            var _args = CreateOpenWinArgs();
+            _args.addParam('type','app');
+            window.openNewWindow("userLock",_args);
+        \}
+
+        -->
+    </script>
+
+    <!-- 导入其脚本 -->
+    <scriptImport src="{CtrlDynField@CtrlDynParam=ResourceDomainRootUrl}/resources/staticRes/client/win/common.js" encodeType="utf-8"/>
+
+    <!-- 导入其他窗口 -->
+    <winImport src="./lock.html" encodeType="utf-8"/>
+
+    <!-- 主窗口 -->
+    <window id="homePage" name="主页" assembly="Newstar.Platform.Client.JSWinClient" class="Newstar.Platform.Client.JSWinClient.CefBrowerHomePage">
+
+        <eventSet>
+            <event id="100" msgKey="100" name="LockWinFun" bind="ctrl+L" type="HotKey" invokeFun="LockWinFun"/>
+        </eventSet>
+
+        <propertySet>
+            <property id="Icon" name="" type="" value="AppContextWinIcon"></property>
+            <property id="MainTitle" name="" type="" value="欢迎使用海大ASP通用客户端 v4.0"></property>
+
+            <!--
+            <property id="Width" name="" type="" value="1280"></property>
+            <property id="Height" name="" type="" value="800"></property>
+             -->
+
+            <!-- 锁窗口编码 -->
+            <property id="UserLockWinId" value="userLock"></property>
+        </propertySet>
+
+        <!-- 静态数据对象 -->
+
+    </window>
+</app>

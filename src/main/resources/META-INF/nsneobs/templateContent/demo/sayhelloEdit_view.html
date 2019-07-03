@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>{CtrlDynField@CtrlDynStyleTxt=root.loginpagetitle}</title>
+</head>
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">这是测试页面,编辑界面</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                action={CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}
+                            </div>
+                            <div class="panel-body">
+
+
+                                <div style="border: 1px solid cadetblue">
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}" target="_self">此处</a>返回索引界面
+                                </div>
+
+
+                                <div style="border: 1px solid cadetblue">
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}/main?CmdId=001" target="_self">此处</a>执行创建命令【CmdId=001】
+                                </div>
+
+                                <div style="border: 1px solid cadetblue">
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}/main?CmdId=003&EntityDemo.name=zzm&price=120&pdNum=5" target="_self">此处</a>执行页面数据刷新【CmdId=003】【EntityDemo.name】【price=120】【pdNum=5】
+                                </div>
+
+                                <div style="border: 1px solid cadetblue">
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}/main?CmdId=005&EntityDemo.name=zzm&price=120&pdNum=5" target="_self">此处</a>增加明细【CmdId=005】【EntityDemo.name】【price=120】【pdNum=5】
+                                </div>
+
+                                <div style="border: 1px solid cadetblue">
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}/main?CmdId=004&EntityDemo.name=zzm&price=120&pdNum=5" target="_self">此处</a>转换状态【CmdId=004】【EntityDemo.name】【price=120】【pdNum=5】
+                                </div>
+
+                                <div>
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}/main?CmdId=002&EntityDemo.name=zzm&price=120&pdNum=5" target="_self">此处</a>执行保存命令【CmdId=002】【EntityDemo.name】【price=120】【pdNum=5】
+                                </div>
+
+                                <div style="border: 1px solid cadetblue">
+                                    点击<a href="{CtrlDynField@CtrlDynParam=AbsolutelyARItemAddress}/main?CmdId=006&EntityDemo.name=zzm&price=120&pdNum=5" target="_self">此处</a>执行独立保存命令【CmdId=006】【EntityDemo.name】【price=120】【pdNum=5】
+                                </div>
+
+                                <div style="border: 1px solid cadetblue">
+                                    <h5>界面控件输出</h5>
+
+                                    {BPMBeansDataEditCtrl@DynSettingTemplateFile=./demo/CtrlEdit.html;DataId=main}
+                                </div>
+                                <div style="border: 1px solid cadetblue">
+                                    <h5>界面控件明细输出</h5>
+                                    <table>
+                                        <tr>
+                                            <th>选择</th>
+                                            <th>索引</th>
+                                            <th>上级编码</th>
+                                            <th>上级名称</th>
+                                        </tr>
+                                        {BPMBeansDataDetailEditCtrl@DynSettingTemplateFile=./demo/CtrlDetailEdit.html;DataId=detail}
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                命令列表
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    {BPMCommandListCtrl@DynSettingTemplateFile=./demo/CtrlCmdList.html}
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        {demo.CtrlBPMTest}
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<wcignore><script>
+
+    $(function(){
+
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+    });
+
+</script></wcignore>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

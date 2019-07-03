@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {JsCssResourcesHead}
+
+    <title>用户编辑</title>
+
+</head>
+
+{addons.samples.web.pp.PatientProfileEditDo@ErrorRedirectPageId=demo.pp.PatientProfile}
+
+<body class="mainbody">
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {NavBarHead}
+
+
+    <div id="page-wrapper">
+
+        <div id="page-wrapper-content">
+
+            <ol id="ToolbarCrumb" class="breadcrumb" style="">
+                <div class="row">
+
+                    <div class="col-xs-3 ToolbarCrumb_TxtTitle" style="">
+                        <h4 id="querycondit_list" class="querycondit_list" style="" title="返回列表" onclick="window.open('{CtrlDynField@CtrlDynParam=CurrentUrl}/toquery','_self')"><i class="fa fa-reply "></i>用户信息编辑</h4>
+                    </div>
+                    <div class="col-xs-9 ToolbarCrumb_OpArea" style="">
+
+                        <div id="BtnListOpArea" class="btn-group ToolbarCrumb_OpArea_BtnLt" btnclass="btn btn-primary" role="group" style="">
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </ol>
+            <!-- /#toolbarcrumb-->
+
+            <div id="EDPanel" class="row">
+
+                <div id="EDPanel_Right" class="col-xs-12">
+
+                    <div class="EDPanel_Right_Area" style="">
+
+                        <form id="mainform" name="mainform" targeturl="{CtrlDynField@CtrlDynParam=CurrentUrl}/" method="post" action="#">
+                            <ul class="nav nav-tabs" id="zhtab">
+                                <li id="zhtab_title_0" class=""><a href="#zhtab_content_0" data-toggle="tab" tabindex="0">基本信息</a></li>
+                                <li id="zhtab_title_1" class=""><a href="#zhtab_content_1" data-toggle="tab" tabindex="1">疾病史</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade" id="zhtab_content_0" style="margin-top: 20px;">
+                                    {MultiDataEditCtrl@DynSettingTemplateFile=./demo/pp/ctrl_dataedit.html}
+                                </div>
+                                <div class="tab-pane fade" id="zhtab_content_1">
+
+                                    <ol class="breadcrumb" style="margin-bottom: 0px; border-left:1px solid #CCCCCC; border-right: 1px solid #CCCCCC; border-radius:0 ;">
+                                        <div class="row form-inline">
+
+                                            <div class="form-group">
+                                                <label for="bingming">疾病名称</label>
+                                                <input type="text" class="form-control input-sm" id="bingming" placeholder="疾病名称">
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="shijian">患病时间</label>
+                                                <input type="text" class="form-control input-sm" id="shijian" placeholder="患病时间">
+                                            </div>
+                                            <a class="btn btn-default btn-sm" href="#" role="button" id="addjibing">添加</a>
+                                        </div>
+                                    </ol>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="th-rowindex">序号</th>
+                                                <th>疾病名称</th>
+                                                <th>患病时间</th>
+                                                <th style="width: 120px;">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tablerowset">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- /#mainform-->
+
+                    </div>
+                    <!-- /#EDPanel_Right_Area-->
+
+                </div>
+                <!-- /#EDPanel_Right-->
+
+            </div>
+            <!-- /#EDPanel-->
+
+        </div>
+        <!-- /#page-wrapper-content -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--页面消息-->
+{PageMsgCtrl}
+
+<script>
+    //引入所有命令数据
+    var ModuleCmdLt = [{WebViewCmdListCtrl@RowAppendString=,}];
+    var bingshihangji =[{MultiDataQueryRSCtrl@DynSettingTemplateFile=./demo/pp/ctrl_dataeditbingshi.html;SessionId=bingshi;RowAppendString=,}];
+</script>
+
+<wcignore><script>
+    //$.cookie(‘cookieName’,null,{path:’/'});
+
+    //保存提交前校验
+    function settingrsvalue(elementObj,globalOptions,btnOutParamObj,btnGroupArea){
+
+
+        return true;
+    }
+
+    function initzhtab(){
+        try {
+            var ind = $.cookie('zhtabindex');
+            if (!ind) {
+                ind = "0";
+                $.cookie('zhtabindex', ind);
+            }else{
+                $.cookie('zhtabindex', ind);
+            }
+            //alert(ind);
+            //ind = "0";
+            /*else {
+                $.cookie('zhtabindex', ind,{path:CurrentPageUrl});
+            }*/
+            $("#zhtab li:eq(" + ind + ")").addClass("active");
+            $("#zhtab_content_"+ind).addClass("in");
+            $("#zhtab_content_"+ind).addClass("active");
+
+            //alert("#zhtab"+(Number(ind)+1));
+            //
+            //in
+            //alert('#zhtab li:eq('+ind+')');
+            //alert("length="+$('#zhtab li:eq('+ind+')').length);
+            //$('#zhtab li:eq('+ind+')').tab('show');
+            //$('#zhtab li:eq('+ind+')').attr()
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+
+    $(function(){
+
+        initzhtab();
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // 获取已激活的标签页的名称
+            //var activeTab = $(e.target).text();
+            //alert(activeTab);
+            var activeTab = $(e.target).attr("tabindex");
+            $.cookie('zhtabindex', activeTab);
+            //alert(activeTab);
+        });
+
+        $("#addjibing").click(function(){
+            var bingming = $("#bingming").val();
+            var shijian = $("#shijian").val();
+            //alert("添加患病内容,疾病名称["+bingming+"],患病时间["+shijian+"]");
+            if(!bingming||$.trim(bingming)==""){
+                $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"请录入疾病名称"});
+                return;
+            }
+            /*
+            if(!shijian||$.trim(shijian)==""){
+                $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"请录入患病时间"});
+                return;
+            }*/
+
+            layer.load(2, {
+                shade: [0.4,'#CCC']
+            });
+
+            //提交数据到服务器端
+            //CurrentPageUrl
+            try{
+                $.ajax({
+                    url:CurrentPageUrl+"/ajaxAddBingShi?doCtrl=addons.samples.web.pp.PatientProfileEditDo&outCtrl=MultiDataJsonOutCtrl&SaveType=append&mingcheng="+bingming+"&shijian="+shijian,
+                    async: false,
+                    error: function(request) {
+                        layer.closeAll('loading');
+                        $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"数据访问异常"});
+                    },
+                    success: function(data) {
+                        try{
+                            var jsonObj = $.parseJSON(data);
+                            if(jsonObj.state=='succ'){
+                                if(jsonObj.dataObj!=null){
+                                    appendTrRow(jsonObj.dataIndex,jsonObj.dataObj.mingcheng,jsonObj.dataObj.shijianToFullStr);
+                                }
+                            }else{
+                                layer.closeAll('loading');
+                                $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":jsonObj.msg});
+                            }
+                        }catch (ef){
+                            alert(ef);
+                        }
+                    }
+                });
+            }catch (e){
+                $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"数据访问异常"});
+            }
+
+            layer.closeAll('loading');
+
+            $("#bingming").val("");
+            $("#shijian").val("");
+
+            $(".detaildelete").click(function(){
+                deleteTrRow($(this));
+            });
+        });
+        //命令区对象
+        try {
+            $("#BtnListOpArea").VisualFormIconBtnGroup({
+                CmdDataObjs: ModuleCmdLt,
+                formObjId: "mainform"
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+        //PageAlertArea
+        try {
+            $("#alertmodaldialog").VisualAlertPageErrorModalMsg();
+        } catch (e) {
+            alert(e);
+        }
+
+        try{
+            for(i=0;i<bingshihangji.length;i++){
+                appendTrRow(bingshihangji[i].rowindex,bingshihangji[i].mingcheng,bingshihangji[i].shijian);
+            }
+        }catch (e){
+            alert(e);
+        }
+
+        $(".detaildelete").click(function(){
+            deleteTrRow($(this));
+        });
+
+
+    });
+
+    function deleteTrRow(aobj){
+        //alert("删除明细:"+aobj.attr("targetindex"));
+        layer.load(2, {
+            shade: [0.4,'#CCC']
+        });
+        try{
+            $.ajax({
+                url:CurrentPageUrl+"/ajaxDeleteBingShi?doCtrl=addons.samples.web.pp.PatientProfileEditDo&outCtrl=MultiDataJsonOutCtrl&SaveType=append&rowindex="+aobj.attr("targetindex"),
+                async: false,
+                error: function(request) {
+                    layer.closeAll('loading');
+                    $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"数据访问异常"});
+                },
+                success: function(data) {
+                    //alert("data:"+data);
+                    try{
+                        var jsonObj = $.parseJSON(data);
+                        if(jsonObj.state=='succ'){
+                            var trobj=aobj.parent().parent();
+                            //alert(trobj);
+                            trobj.remove();
+                        }else{
+                            layer.closeAll('loading');
+                            $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":jsonObj.msg});
+                        }
+                    }catch (ef){
+                        alert(ef);
+                    }
+                }
+            });
+        }catch (e){
+            alert(e);
+            $("#alertmodaldialog").VisualAlertModalMsgDialog({"msgcontent":"数据访问异常"});
+        }
+        layer.closeAll('loading');
+    }
+
+    function appendTrRow(index,mingcheng,shijian){
+        $("#tablerowset").append("<tr><td style='text-align: center;'>"
+                +index+"</td><td>"+mingcheng+"</td><td>"
+                +shijian+"</td><td style='text-align: center;'><a class='detaildelete' targetindex='"+index+"' href='#'><i class='fa fa-times'></i></a></td></tr>");
+    }
+
+</script></wcignore>
+
+<script>
+</script>
+
+{JsCssResourcesTail}
+</body>
+
+</html>

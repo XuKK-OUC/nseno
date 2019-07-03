@@ -1,0 +1,80 @@
+{OutContent$<div class="row">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <div class="form-group">
+                <label class="requiredflag" for="SysUserEntityImp.userName">姓名</label>
+                <input type="text" class="form-control" name="SysUserEntityImp.userName" id="SysUserEntityImp.userName" placeholder="" value="<data>SysUserEntityImp.userName</data>">
+            </div>
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+    <div class="col-sm-3">
+        <div class="form-group">
+
+            <label class="requiredflag" for="SysUserEntityImp.userLoginName">登录名</label>
+            <input type="text" class="form-control" name="SysUserEntityImp.userLoginName" id="SysUserEntityImp.userLoginName" placeholder="" value="<data>SysUserEntityImp.userLoginName</data>">
+
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label class="requiredflag" for="SysUserEntityImp.userPwd">密码</label>
+            <input type="password" class="form-control" id="SysUserEntityImp.userPwd" name="SysUserEntityImp.userPwd" placeholder="" value="<data>SysUserEntityImp.userPwd</data>">
+
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+    <div class="col-sm-3">
+        <div class="form-group">
+
+            <label for="SysUserEntityImp.userTel">电话</label>
+            <input type="text" class="form-control" name="SysUserEntityImp.userTel" id="SysUserEntityImp.userTel" placeholder="" value="<data>SysUserEntityImp.userTel</data>">
+
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+</div>
+
+<!-- row end-->
+<div class="row">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="SysUserEntityImp.roleId">角色</label>
+                <select class="form-control" name="SysUserEntityImp.roleId" id="SysUserEntityImp.roleId">
+
+                    <globalds
+                            dstype="dynsource"
+                            outtype="com.nsneo.web.webTemplate.utils.dynWebDataSource.GlobalDSOutType_Option"
+                            datasource="com.common.web.dataSource.DDS_Role">SysUserEntityImp.roleId</globalds>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+
+    <div class="col-sm-3">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="SysUserEntityImp.userState">状态</label>
+                <select class="form-control"  name="SysUserEntityImp.userState" id="SysUserEntityImp.userState">
+                    <option value="">请选择...</option>
+                    <globalds
+                            dstype="dynsource"
+                            outtype="com.nsneo.web.webTemplate.utils.dynWebDataSource.GlobalDSOutType_Option"
+                            datasource="com.nsneo.web.webTemplate.utils.dynWebDataSource.DynDataSourceForStaticGlobalParam"
+                            param="CommonStaticParam.UserParam.UserState">SysUserEntityImp.userState</globalds>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.col-sm-3 -->
+
+</div>
+}
